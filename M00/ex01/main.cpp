@@ -1,0 +1,127 @@
+# include <iostream>
+
+# include "validate.hpp"
+
+void process_choice(std::string choice);
+void contact_add(void);
+
+int main(void) {
+
+    /**
+     * varibale to handle the user command possible valid values can be ADD, SEARCH
+     * and EXIT
+    */
+    std::string choice;
+
+    /**
+     * phonebook program will display a prompt and wait for a user input, the loop
+     * will continiously prompt unstill user enter EXIT. The process_choice() will
+     * process the user expectation otherwise
+    */
+    while(true)
+    {
+        std::cout << " --- Welcome to phonebook app ---      " << std::endl;
+        std::cout << " Enter your prefferred command :       " << std::endl;
+        std::cout << "  ADD     -> to add new contact.       " << std::endl;
+        std::cout << "  SEARCH  -> to search for a contact.  " << std::endl;
+        std::cout << "  EXIT    -> to exit the program.      " << std::endl;
+        std::cout << " --------------------------------------" << std::endl;
+        std::cout << "  your choice : ";
+        std::getline(std::cin, choice);
+        if (choice == "EXIT")
+        {
+            std::cout << "leaving the program." << std::endl;
+            break;
+        }
+        process_choice(choice);
+    }
+    return (0);
+}
+
+void process_choice(std::string choice) {
+
+    if(choice == "ADD")
+        contact_add();
+    else if(choice == "SEARCH")
+        std::cout << "this is call the SEARCH funtionality " << std::endl;
+    else if (!choice.empty())
+        std::cout << "in valid command handling" << std::endl;
+    choice.clear();
+}
+
+void contact_add(void) {
+
+    /**
+     * placeholder varibales to store values untill creating the phonebook
+     * record
+    */
+    std::string f_name, l_name, n_name, p_number, secret;
+
+    /**
+     * will propmt and wait for user input, for any invalid input an error message
+     * will prompt and followed by the previous propmt. process will follow untill
+     * user enter a valid input for first name. only alphabetical characters will
+     * accept
+    */
+    do {
+            std::cout << " Enter first name     : ";
+            std::getline(std::cin, f_name);
+            if (!isValidName(f_name))
+            {
+                std::cout << "Invalid first  name, try again!\n";
+                f_name.clear();
+            }
+    } while (f_name.empty());
+
+        /**
+     * will propmt and wait for user input, for any invalid input an error message
+     * will prompt and followed by the previous propmt. process will follow untill
+     * user enter a valid input for last name. only alphabetical characters will
+     * accept
+    */
+    do {
+            std::cout << " Enter last name      : ";
+            std::getline(std::cin, l_name);
+            if (!isValidName(l_name))
+            {
+                std::cout << "Invalid last name, try again!\n";
+                l_name.clear();
+            }
+    } while (l_name.empty());
+
+    /**
+    * will prompt and wait for a user input, no validating. user can even leave this
+    * balnk or can enter any character as prefer
+    */
+    std::cout << " Enter nick name      : ";
+    std::getline(std::cin, n_name);
+
+    /**
+     * will propmt and wait for a user input, strict validation fill follow for both
+     * content and format. process will follow untill user enter a valid input for phone number.
+    */
+    do {
+            std::cout << " Enter phone number   : ";
+            std::getline(std::cin, p_number);
+            if (!isValidNumber(p_number))
+            {
+                std::cout << "Invalid phone number, try again!\n";
+                p_number.clear();
+            }
+    } while (p_number.empty());
+
+    /**
+    * will prompt and wait for a user input, no validating. user can even leave this
+    * balnk or can enter any character as prefer
+    */
+    std::cout << " Enter darkest secret : ";
+    std::getline(std::cin, secret);
+
+    std::cout << "data you entered "
+        << " fname :"   << f_name    << "\n"
+        << " lname :"   << l_name    << "\n"
+        << " nname :"   << n_name    << "\n"
+        << " nmber :"   << p_number  << "\n"
+        << " secret :"  << secret    << "\n";
+}
+

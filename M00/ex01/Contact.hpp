@@ -1,0 +1,32 @@
+# ifndef CONTACT_HPP
+#  define CONTACT_HPP
+
+# include <string>
+
+class Contact {
+    private :
+        /**
+         * varibale to stote the values of a respective contact, firat_name_ and phone_number_
+         * will be mandotory
+        */
+        std::string first_name_;
+        std::string last_name_;
+        std::string nick_name_;
+        std::string phone_number_;
+        std::string darkest_secret_;
+    public  :
+        /**
+         * constructors
+        */
+        Contact();
+        Contact(std::string f_name,std::string p_number);
+        Contact(
+            std::string f_name,
+            std::string l_name,
+            std::string n_name,
+            std::string p_number,
+            std::string secret
+        );
+};
+
+# endif
