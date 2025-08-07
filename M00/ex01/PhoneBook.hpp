@@ -13,7 +13,7 @@
 /**
  * size will detemine the number of records program will allocate memory
 */
-constexpr int size  = 2;
+constexpr int size  = 8;
 
 class PhoneBook {
 
@@ -35,7 +35,7 @@ class PhoneBook {
         */
         void addRecord(const Contact contact);
         //void searchRecord(int index);
-        //void viewSingleContact(Contact contact);
+        void viewSingleContact(int index);
         void veiwAllContacts(void);
 };
 

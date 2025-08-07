@@ -20,14 +20,20 @@ void PhoneBook::addRecord(const Contact contact) {
 
 // }
 
-// void PhoneBook::viewSingleContact(Contact contact) {
+void PhoneBook::viewSingleContact(int index) {
 
-// }
+    if (index < 0 || index >= size) {
+        std::cerr << "Invalid index !\n";
+    }
+    const Contact contact = this->records[index];
+
+    std::cout << "First name    : " << "contact.first_name" << std::endl;
+}
 
 void PhoneBook::veiwAllContacts(void) {
 
     if (this->rw_head == 0) {
-        std::cout << "there are no record availabe !\n";
+        std::cerr << "there are no record availabe !\n";
     }
 
     printColumn("index");

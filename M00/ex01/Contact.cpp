@@ -4,11 +4,11 @@
  * no data provided during the object creation hence assigning the default values
 */
 Contact::Contact(void) {
-    first_name_     = "N/A";
-    last_name_      = "N/A";
-    nick_name_      = "N/A";
+    first_name_     = "xxxxxxxxxx";
+    last_name_      = "xxxxxxxxxx";
+    nick_name_      = "**********";
     phone_number_   = "xxx-xxx xxx xxx";
-    darkest_secret_ = "N/A";
+    darkest_secret_ = "**********";
 }
 
 /**

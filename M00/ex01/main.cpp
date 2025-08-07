@@ -48,7 +48,7 @@ void process_choice(std::string choice, PhoneBook& my_phone_book) {
     else if(choice == "SEARCH")
         std::cout << "this is call the SEARCH funtionality " << std::endl;
     else if (!choice.empty())
-        std::cout << "in valid command handling" << std::endl;
+        std::cerr << "in valid command handling" << std::endl;
     choice.clear();
 }
 
@@ -71,7 +71,7 @@ void contact_add(PhoneBook& my_phone_book) {
             std::getline(std::cin, f_name);
             if (!isValidName(f_name))
             {
-                std::cout << "Invalid first  name, try again!\n";
+                std::cerr << "Invalid first  name, try again!\n";
                 f_name.clear();
             }
     } while (f_name.empty());
@@ -87,7 +87,7 @@ void contact_add(PhoneBook& my_phone_book) {
             std::getline(std::cin, l_name);
             if (!isValidName(l_name))
             {
-                std::cout << "Invalid last name, try again!\n";
+                std::cerr << "Invalid last name, try again!\n";
                 l_name.clear();
             }
     } while (l_name.empty());
@@ -96,8 +96,16 @@ void contact_add(PhoneBook& my_phone_book) {
     * will prompt and wait for a user input, no validating. user can even leave this
     * balnk or can enter any character as prefer
     */
-    std::cout << " Enter nick name      : ";
-    std::getline(std::cin, n_name);
+
+    do {
+            std::cout << " Enter nick name      : ";
+            std::getline(std::cin, n_name);
+            if (!isNotBlank(n_name)) {
+                std::cerr << "nick name can not be blank, try again!\n";
+                n_name.clear();
+            }
+    } while (n_name.empty());
+
 
     /**
      * will propmt and wait for a user input, strict validation fill follow for both
@@ -108,17 +116,23 @@ void contact_add(PhoneBook& my_phone_book) {
             std::getline(std::cin, p_number);
             if (!isValidNumber(p_number))
             {
-                std::cout << "Invalid phone number, try again!\n";
+                std::cerr << "Invalid phone number, try again!\n";
                 p_number.clear();
             }
     } while (p_number.empty());
 
     /**
-    * will prompt and wait for a user input, no validating. user can even leave this
-    * balnk or can enter any character as prefer
+    * will prompt and wait for a user input, no validating. user can not leave this
+    * balnk but can enter any character as prefer
     */
-    std::cout << " Enter darkest secret : ";
-    std::getline(std::cin, secret);
+    do {
+            std::cout << " Enter darkest secret : ";
+            std::getline(std::cin, secret);
+            if (!isNotBlank(secret)) {
+                std::cerr << "secret can not be blank, try again!\n";
+                secret.clear();
+            }
+    } while (secret.empty());
 
     my_phone_book.addRecord(Contact(f_name, l_name, n_name, p_number, secret));
     my_phone_book.veiwAllContacts();

@@ -23,6 +23,12 @@
 # define PATTERN03 "^\\(?([0-9]{3})\\)?[\\s-]?[0-9]{3}[\\s-]?[0-9]{4}$"
 
 /**
+ * Pattern 04 will assure the string is not filled with isspace() characters
+*/
+
+# define PATTERN04 ".*\\S.*"
+
+/**
  * validate a name, if name contains any character other than alphabatic
  * character function will return false, and return true otherwise
 */
@@ -53,6 +59,15 @@ bool isValidNumber(std::string number) {
     );
 }
 
+bool isNotBlank(std::string text) {
+
+    const std::regex pattern4 (PATTERN04);
+
+    return (
+            std::regex_match(text, pattern4)
+    );
+}
+
 void printColumn(const std::string text) {
     if (text.length() < width) {
         std::cout << std::right << std::setw(width) << text << "|";
@@ -61,3 +76,5 @@ void printColumn(const std::string text) {
     }
 
 }
+
+

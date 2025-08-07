@@ -10,6 +10,7 @@ constexpr int width = 10;
 
 bool isValidName(std::string name);
 bool isValidNumber(std::string number);
+bool isNotBlank(std::string text);
 
 void printColumn(const std::string text);
 
