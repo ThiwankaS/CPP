@@ -15,7 +15,7 @@ DFLAGS  = -Wall -Wextra -Werror -g -fsanitize=address,undefined
 SRCS    = \
 		Contact.cpp\
 		PhoneBook.cpp\
-		validate.cpp\
+		utilities.cpp\
 		main.cpp
 OBJS    = $(SRCS:.cpp=.o)
 

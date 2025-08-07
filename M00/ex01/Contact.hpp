@@ -1,7 +1,7 @@
 # ifndef CONTACT_HPP
 #  define CONTACT_HPP
 
-# include <string>
+# include "utilities.hpp"
 
 class Contact {
     private :
@@ -19,7 +19,6 @@ class Contact {
          * constructors
         */
         Contact();
-        Contact(std::string f_name,std::string p_number);
         Contact(
             std::string f_name,
             std::string l_name,
@@ -27,6 +26,14 @@ class Contact {
             std::string p_number,
             std::string secret
         );
+        /**
+         * default destructor
+        */
+        ~Contact() = default;
+        /**
+         * class methods
+        */
+       void print(void);
 };
 
 # endif

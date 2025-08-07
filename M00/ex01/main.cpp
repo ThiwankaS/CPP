@@ -1,9 +1,10 @@
 # include <iostream>
 
-# include "validate.hpp"
+# include "utilities.hpp"
+# include "PhoneBook.hpp"
 
-void process_choice(std::string choice);
-void contact_add(void);
+void process_choice(std::string choice, PhoneBook& my_phone_book);
+void contact_add(PhoneBook& my_phone_book);
 
 int main(void) {
 
@@ -12,6 +13,8 @@ int main(void) {
      * and EXIT
     */
     std::string choice;
+
+    PhoneBook my_phone_book = PhoneBook();
 
     /**
      * phonebook program will display a prompt and wait for a user input, the loop
@@ -33,15 +36,15 @@ int main(void) {
             std::cout << "leaving the program." << std::endl;
             break;
         }
-        process_choice(choice);
+        process_choice(choice, my_phone_book);
     }
     return (0);
 }
 
-void process_choice(std::string choice) {
+void process_choice(std::string choice, PhoneBook& my_phone_book) {
 
     if(choice == "ADD")
-        contact_add();
+        contact_add(my_phone_book);
     else if(choice == "SEARCH")
         std::cout << "this is call the SEARCH funtionality " << std::endl;
     else if (!choice.empty())
@@ -49,7 +52,7 @@ void process_choice(std::string choice) {
     choice.clear();
 }
 
-void contact_add(void) {
+void contact_add(PhoneBook& my_phone_book) {
 
     /**
      * placeholder varibales to store values untill creating the phonebook
@@ -117,11 +120,7 @@ void contact_add(void) {
     std::cout << " Enter darkest secret : ";
     std::getline(std::cin, secret);
 
-    std::cout << "data you entered "
-        << " fname :"   << f_name    << "\n"
-        << " lname :"   << l_name    << "\n"
-        << " nname :"   << n_name    << "\n"
-        << " nmber :"   << p_number  << "\n"
-        << " secret :"  << secret    << "\n";
+    my_phone_book.addRecord(Contact(f_name, l_name, n_name, p_number, secret));
+    my_phone_book.veiwAllContacts();
 }
 
