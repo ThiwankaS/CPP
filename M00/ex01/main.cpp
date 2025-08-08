@@ -3,8 +3,10 @@
 # include "utilities.hpp"
 # include "PhoneBook.hpp"
 
+// helper functions declaration
 void process_choice(std::string choice, PhoneBook& my_phone_book);
 void contact_add(PhoneBook& my_phone_book);
+void contact_search(PhoneBook& my_phone_book);
 
 int main(void) {
 
@@ -15,6 +17,11 @@ int main(void) {
     std::string choice;
 
     PhoneBook my_phone_book = PhoneBook();
+
+    /**
+     * un-comment below function to add some test data
+    */
+    //my_phone_book.addSomeTestDate();
 
     /**
      * phonebook program will display a prompt and wait for a user input, the loop
@@ -41,30 +48,28 @@ int main(void) {
     return (0);
 }
 
+// invoking funtionalities based on the user's choice
 void process_choice(std::string choice, PhoneBook& my_phone_book) {
 
     if(choice == "ADD")
         contact_add(my_phone_book);
     else if(choice == "SEARCH")
-        std::cout << "this is call the SEARCH funtionality " << std::endl;
-    else if (!choice.empty())
-        std::cerr << "in valid command handling" << std::endl;
+        contact_search(my_phone_book);
+    else if(!choice.empty())
+        std::cerr << "Incorrect choice, try agin !" << std::endl;
     choice.clear();
 }
 
+// adding a new contact to the phonbook
 void contact_add(PhoneBook& my_phone_book) {
 
-    /**
-     * placeholder varibales to store values untill creating the phonebook
-     * record
-    */
     std::string f_name, l_name, n_name, p_number, secret;
 
     /**
      * will propmt and wait for user input, for any invalid input an error message
-     * will prompt and followed by the previous propmt. process will follow untill
-     * user enter a valid input for first name. only alphabetical characters will
-     * accept
+     * will display followed by the previous propmt.
+     * process will continue untill user enter a valid input for first name.
+     * only alphabetical characters will accept
     */
     do {
             std::cout << " Enter first name     : ";
@@ -76,11 +81,11 @@ void contact_add(PhoneBook& my_phone_book) {
             }
     } while (f_name.empty());
 
-        /**
+    /**
      * will propmt and wait for user input, for any invalid input an error message
-     * will prompt and followed by the previous propmt. process will follow untill
-     * user enter a valid input for last name. only alphabetical characters will
-     * accept
+     * will display followed by the previous propmt.
+     * process will follow continue user enter a valid input for last name.
+     * only alphabetical characters will accept
     */
     do {
             std::cout << " Enter last name      : ";
@@ -93,10 +98,9 @@ void contact_add(PhoneBook& my_phone_book) {
     } while (l_name.empty());
 
     /**
-    * will prompt and wait for a user input, no validating. user can even leave this
-    * balnk or can enter any character as prefer
+    * will prompt and wait for a user input, no validating.
+    * user can not leave this balnk but can enter any character as prefer
     */
-
     do {
             std::cout << " Enter nick name      : ";
             std::getline(std::cin, n_name);
@@ -106,10 +110,10 @@ void contact_add(PhoneBook& my_phone_book) {
             }
     } while (n_name.empty());
 
-
     /**
-     * will propmt and wait for a user input, strict validation fill follow for both
-     * content and format. process will follow untill user enter a valid input for phone number.
+     * will propmt and wait for a user input, strict validation will follow for both
+     * content and format.
+     * process will continue untill user enter a valid input for phone number.
     */
     do {
             std::cout << " Enter phone number   : ";
@@ -134,7 +138,35 @@ void contact_add(PhoneBook& my_phone_book) {
             }
     } while (secret.empty());
 
+    /**
+     * creating new contact instance and add to my_phonebook
+    */
     my_phone_book.addRecord(Contact(f_name, l_name, n_name, p_number, secret));
-    my_phone_book.veiwAllContacts();
 }
 
+// travese through my_phonebook and display records
+void contact_search(PhoneBook& my_phone_book) {
+
+    std::string input;
+
+    /**
+     * view all the contacts saved in the phonebook
+    */
+    if (my_phone_book.viewAllContacts()) {
+        /**
+        * prompt and wait for user input for index to to view single contact
+        */
+        do {
+                std::cout << "\n" << " Enter index   : ";
+                std::getline(std::cin, input);
+                if (!isValidIndex(input)) {
+                    std::cerr << "Invalid index !\n";
+                    input.clear();
+                }
+        } while (input.empty());
+        /**
+         * convert user input to int and invoke the view function
+        */
+        my_phone_book.viewSingleContact(std::stoi(input));
+    }
+}

@@ -1,7 +1,7 @@
 # include "utilities.hpp"
 
 /**
- * Pattern 01 will assure that a nme only includes alphabatical charcates
+ * Pattern 01, a name only includes alphabatical charcates
 */
 # define PATTERN01 "^[a-zA-Z]+$"
 
@@ -25,8 +25,12 @@
 /**
  * Pattern 04 will assure the string is not filled with isspace() characters
 */
-
 # define PATTERN04 ".*\\S.*"
+
+/**
+ * only accept one digit, 0 - 9
+*/
+# define PATTERN05 "^[0-9]$"
 
 /**
  * validate a name, if name contains any character other than alphabatic
@@ -38,6 +42,7 @@ bool isValidName(std::string name) {
         std::regex_match(name, pattern1)
     );
 }
+
 
 /**
  * validate a phone number to assure it follows either E.164 international standards
@@ -59,6 +64,9 @@ bool isValidNumber(std::string number) {
     );
 }
 
+/**
+ * validate the input not contain any empty data
+*/
 bool isNotBlank(std::string text) {
 
     const std::regex pattern4 (PATTERN04);
@@ -68,6 +76,25 @@ bool isNotBlank(std::string text) {
     );
 }
 
+/**
+ * checking the index user entered is in the range
+*/
+bool isValidIndex(std::string index) {
+    const std::regex pattern5 (PATTERN05);
+
+    return (
+            std::regex_match(index, pattern5)
+    );
+}
+
+/**
+ * displaying a text|string base on a predefined format
+ * column width will be 10 (width)
+ * pipe character (’|’) separates
+ * right-aligned
+ * If the text is longer than the column,   it must be truncated
+ * and the last displayable character must be replaced by a dot (’.’).
+*/
 void printColumn(const std::string text) {
     if (text.length() < width) {
         std::cout << std::right << std::setw(width) << text << "|";
@@ -76,5 +103,3 @@ void printColumn(const std::string text) {
     }
 
 }
-
-

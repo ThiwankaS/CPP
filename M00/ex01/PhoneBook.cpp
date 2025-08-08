@@ -1,8 +1,6 @@
 # include "PhoneBook.hpp"
 
-/**
- * no argument constructor
-*/
+// no argument constructor will intialized the read/write head to zero
 PhoneBook::PhoneBook () {
     rw_head = 0;
 }
@@ -10,41 +8,94 @@ PhoneBook::PhoneBook () {
 void PhoneBook::addRecord(const Contact contact) {
     int index = this->rw_head % size;
     this->records[index] = contact;
-    std::cout << "index : " << std::to_string(index) << std::endl;
-    std::cout << "rw_head : " << std::to_string(this->rw_head) << std::endl;
     this->rw_head++;
-    std::cout << "rw_head after : " << std::to_string(this->rw_head) << std::endl;
+    std::cout << "contact added successfully !" << std::endl;
 }
-
-// void PhoneBook::searchRecord(int index) {
-
-// }
 
 void PhoneBook::viewSingleContact(int index) {
 
-    if (index < 0 || index >= size) {
-        std::cerr << "Invalid index !\n";
+    // index should be with in the range of records saved
+    if (index < 0 || index >= std::min(this->rw_head, size)) {
+        // user trying to access out of range record
+        std::cerr << "there is no such record !\n";
+    } else {
+        // accessing a record with correct index
+        this->records[index].view();
     }
-    const Contact contact = this->records[index];
-
-    std::cout << "First name    : " << "contact.first_name" << std::endl;
 }
 
-void PhoneBook::veiwAllContacts(void) {
+bool PhoneBook::viewAllContacts(void) {
 
     if (this->rw_head == 0) {
-        std::cerr << "there are no record availabe !\n";
-    }
+        // user trying to view and search empty phonebook
+        std::cerr << "phone book is empty !\n";
+        return (false);
 
-    printColumn("index");
-    printColumn("first name");
-    printColumn("last name");
-    printColumn("nick name");
-    std::cout << "\n";
+    } else {
+        // header colunmn
+        printColumn("index");
+        printColumn("first name");
+        printColumn("last name");
+        printColumn("nick name");
 
-    for(int i = 0; i < std::min(this->rw_head, size); i++) {
-        printColumn(std::to_string(i));
-        this->records[i].print();
         std::cout << "\n";
+        // print all the records one by one
+        for(int i = 0; i < std::min(this->rw_head, size); i++) {
+            printColumn(std::to_string(i));
+            this->records[i].print();
+            std::cout << "\n";
+        }
+        return (true);
     }
+}
+
+void PhoneBook::addSomeTestDate(void) {
+
+    this->addRecord(Contact (
+        "Thiwanka",
+        "Somachandra",
+        "tsomacha",
+        "045 555 3838",
+        "I am the superman"
+    ));
+
+    this->addRecord(Contact (
+        "Linus",
+        "Trovalds",
+        "mr.linux",
+        "(045)-123-4567",
+        "Farther of linux and git"
+    ));
+
+    this->addRecord(Contact (
+        "Ada",
+        "Lovelace",
+        "goat",
+        "+358 11 111 1111",
+        "world first programmer"
+    ));
+
+    this->addRecord(Contact (
+        "Allan",
+        "Turin",
+        "complex",
+        "045 123 4567",
+        "he invented the turing machine"
+    ));
+
+    this->addRecord(Contact (
+        "Dennis",
+        "Ritchie",
+        "mr.c",
+        "(045) 123 4567",
+        "Farther of C and Unix"
+    ));
+
+    this->addRecord(Contact (
+        "Bjarne",
+        "Stroustrup",
+        "mr.cpp",
+        "0451234567",
+        "Farther of C++"
+    ));
 }

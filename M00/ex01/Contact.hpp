@@ -4,20 +4,16 @@
 # include "utilities.hpp"
 
 class Contact {
+    
     private :
-        /**
-         * varibale to stote the values of a respective contact, firat_name_ and phone_number_
-         * will be mandotory
-        */
         std::string first_name_;
         std::string last_name_;
         std::string nick_name_;
         std::string phone_number_;
         std::string darkest_secret_;
+
     public  :
-        /**
-         * constructors
-        */
+        //constructors
         Contact();
         Contact(
             std::string f_name,
@@ -26,14 +22,12 @@ class Contact {
             std::string p_number,
             std::string secret
         );
-        /**
-         * default destructor
-        */
+        //default destructor
         ~Contact() = default;
-        /**
-         * class methods
-        */
-       void print(void);
+
+        //class methods
+        void print(void);
+        void view(void);
 };
 
 # endif

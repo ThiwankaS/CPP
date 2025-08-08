@@ -1,42 +1,36 @@
 # ifndef PHONEBOOK_HPP
 #  define PHONEBOOK_HP
 
-/**
- * standard headers
-*/
 # include <iostream>
-/**
- * custome headers
-*/
+
 # include "Contact.hpp"
 
-/**
- * size will detemine the number of records program will allocate memory
-*/
+
+//size will detemine the number of records program will allocate memory
 constexpr int size  = 8;
 
 class PhoneBook {
 
     private :
+        // read/write head to point the index in te array
         int rw_head;
+        // an array of contacts
         Contact records[size];
 
     public  :
-        /**
-         * constructors
-        */
+        // constructors
         PhoneBook();
-        /**
-         * default destructor
-        */
+
+        // default destructor
         ~PhoneBook() = default;
-        /**
-         * other class methods declaration
-        */
+
+        // other class methods declaration
         void addRecord(const Contact contact);
-        //void searchRecord(int index);
         void viewSingleContact(int index);
-        void veiwAllContacts(void);
+        bool viewAllContacts(void);
+
+        // adding some data for testing purposes - 06 rows of data will added
+        void addSomeTestDate(void);
 };
 
 # endif

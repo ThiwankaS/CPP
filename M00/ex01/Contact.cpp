@@ -29,8 +29,24 @@ Contact :: Contact (
     darkest_secret_ = secret;
 }
 
+/**
+ * displaying all the filed in a contact record follwing the formatting guidelines
+*/
 void Contact::print(void) {
     printColumn(this->first_name_);
     printColumn(this->last_name_);
     printColumn(this->nick_name_);
+}
+
+/**
+ * displaying  all the filed in a contact record one filed in line
+*/
+void Contact::view(void) {
+    std::cout << "\n";
+    std::cout << " First Name       : " << this->first_name_ << std::endl;
+    std::cout << " Last Name        : " << this->last_name_ << std::endl;
+    std::cout << " Nick Name        : " << this->nick_name_ << std::endl;
+    std::cout << " Phone Number     : " << this->phone_number_ << std::endl;
+    std::cout << " Dark Secret      : " << this->darkest_secret_ << std::endl;
+    std::cout << "-----------------------------------------" << std::endl;
 }

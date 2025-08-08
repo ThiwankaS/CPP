@@ -11,12 +11,14 @@ CFLAGS  = -Wall -Wextra -Werror -std=c++20 -O3
 # Debug flags with sanitizers for a debug build.
 DFLAGS  = -Wall -Wextra -Werror -g -fsanitize=address,undefined
 
-# Source and object files.
+# Source files.
 SRCS    = \
 		Contact.cpp\
 		PhoneBook.cpp\
 		utilities.cpp\
 		main.cpp
+
+# Object files.
 OBJS    = $(SRCS:.cpp=.o)
 
 # Default target: build the release version.
@@ -27,7 +29,7 @@ $(NAME) : $(OBJS)
 	$(CMD) $(CFLAGS) $(OBJS) -o $(NAME)
 
 # Rule for creating object files from source files.
-# This ensures that only changed files are recompiled.
+# Ensures that only changed files are recompiled.
 %.o : %.cpp
 	$(CMD) $(CFLAGS) -c $< -o $@
 
