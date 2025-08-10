@@ -34,9 +34,9 @@ Code Explanation
 
 How build and run
 
-to compile the program using `c++ -Wall -Wextra -Werror -std=c++20 -O3` use `make`
+to compile the program using `c++ -Wall -Wextra -Werror -std=c++20 -O2` use `make`
 ```bash
-# compile with flags c++ -Wall -Wextra -Werror -std=c++20 -O3
+# compile with flags c++ -Wall -Wextra -Werror -std=c++20 -O2
 $>make
 ```
 this will create the executable `megaphone` and the object file `megaphone.o` in the same directry
@@ -73,3 +73,74 @@ expected output
 ```bash
 * LOUD AND UNBEARABLE FEEDBACK NOISE *
 ```
+### EX01
+
+This program caled phonebook the user will preseted with a prompt to enter a choice, base on the choice will invoke the funtionalitis to ADD or SERACH contact(s).
+
+Below explain the logic of the program
+
+01. Once the program run using the command,
+    ``` bash
+    ./phonebook
+    ```
+    the program will propmt a message on the teminal as below, and the user input will read in to the varibale `choice` using `std::getline()`
+
+    ```bash
+    --- Welcome to phonebook app ---
+    Enter your prefferred command :
+    ADD     -> to add new contact.
+    SEARCH  -> to search for a contact.
+    EXIT    -> to exit the program.
+    --------------------------------------
+    your choice :
+    ```
+
+02. In the event user input EXIT command the program will exit
+
+    ```c++
+    while(true)
+        {
+            if (choice == "EXIT")
+            {
+                std::cout << "leaving the program." << std::endl;
+                break;
+            }
+        }
+    ```
+
+03. If user enter the choice ADD or SERACH `process_choice(choice, my_phone_book);` will invoke the respective functionality. For this program only ADD, SEARCH and EXIT will consider as valid choices. Any input other that these will treat as invalid by displaying the error message `Incorrect choice, try agin !`
+
+04. in the event user enter ADD, another prompt will display wait for user input to read in data for filed in a contact for `First Name`, `Last Name`, `Nick Name`, `Phone Number`, `Darkest Secret` one after another
+
+    ```bash
+    Enter first name     : testname
+    Enter last name      : testname
+    Enter nick name      : test
+    Enter phone number   : 045 123 4567
+    Enter darkest secret : some secret
+    ```
+    In line data validation will follow and program will not proceed to the next filed until it recives valid value for the current feild.
+
+05. After sucessfully enter all the data, the record will save to `Contact records[size]` by default as per the subject requirment `constexpr int size  = 8`. if user entered more than reords `size` the oldest one will replace and save the new one
+
+06. If user entered SEARCH as the first choice, where ther are no availabe records to show the program will display an error message `phone book is empty !`and prompt the initial message again for the next choice
+
+07. All the records will create, save and display runtime. EXIT will exit the program entirly. The entered data will be lost forever.
+
+08. In the event user enter SERACH command, and there are some data records availabe in the memory, all the recrds will display following the format requirments
+
+    ```bash
+    index|first nam.| last name| nick name|
+         0|  Thiwanka|Somachand.|  tsomacha|
+         1|     Linus|  Trovalds|  mr.linux|
+         2|       Ada|  Lovelace|      goat|
+         3|     Allan|     Turin|   complex|
+         4|    Dennis|   Ritchie|      mr.c|
+         5|    Bjarne|Stroustru.|    mr.cpp|
+    ```
+09. User can select a record to diplay by entering correcponding index to the following propmt
+    ```bash
+    Enter index   :
+    ```
+10. If user enter incorrecvt index the progam will simply dispaly an error message `there is no such record !` and let user to enter another value.
+
