@@ -2,14 +2,23 @@
 # Makefile for phonebook.
 #
 
+# Name of the program
 NAME    = phonebook
+
+# Compiler name
 CMD     = c++
 
-# Optimization flags for a release build.
-CFLAGS  = -Wall -Wextra -Werror -std=c++20 -O3
+# Additional warings and errors
+WARN	= -Wall -Wextra -Werror
 
-# Debug flags with sanitizers for a debug build.
-DFLAGS  = -Wall -Wextra -Werror -g -fsanitize=address,undefined
+# Language standrad version
+STD		= -std=c++20
+
+# Optimization flags for a release build.
+CFLAGS  = $(WARN) $(STD) -O2
+
+# Debug flags with sanitizers for debug build for OBJS.
+DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
@@ -18,32 +27,41 @@ SRCS    = \
 		utilities.cpp\
 		main.cpp
 
-# Object files.
-OBJS    = $(SRCS:.cpp=.o)
+# Object files for release build.
+R_OBJS    = $(SRCS:.cpp=.o)
+
+# Object files for debug build.
+D_OBJS    = $(SRCS:.cpp=.debug.o)
 
 # Default target: build the release version.
 all     : $(NAME)
 
-# Target to build the final executable with release flags.
-$(NAME) : $(OBJS)
-	$(CMD) $(CFLAGS) $(OBJS) -o $(NAME)
+# Build the final executable with release flags.
+$(NAME) : $(R_OBJS)
+	$(CMD) $(CFLAGS) $(R_OBJS) -o $@
 
-# Rule for creating object files from source files.
-# Ensures that only changed files are recompiled.
+# Compile for relese, make sure any code chage will recompile.
 %.o : %.cpp
 	$(CMD) $(CFLAGS) -c $< -o $@
 
 # Target to build the executable with debug flags.
-debug   : $(OBJS)
-	$(CMD) $(DFLAGS) $(OBJS) -o $(NAME)
+debug   : $(NAME)_debug
+
+# Build the final executable with debug flags
+$(NAME)_debug   : $(D_OBJS)
+	$(CMD) $(DFLAGS) $(D_OBJS) -o $@
+
+# Compile for debug, make sure any code chage will recompile.
+%.debug.o : %.cpp
+	$(CMD) $(CFLAGS) -c $< -o $@
 
 # Remove object files.
 clean   :
-	rm -rf $(OBJS)
+	rm -rf $(R_OBJS) $(D_OBJS)
 
 # Remove object files and the final executable.
 fclean  : clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAME)_debug
 
 # Full rebuild.
 re      : fclean all
