@@ -1,10 +1,13 @@
 # ifndef CONTACT_HPP
 #  define CONTACT_HPP
 
+# include <iostream>
+# include <string>
+
 # include "utilities.hpp"
 
 class Contact {
-    
+
     private :
         std::string first_name_;
         std::string last_name_;

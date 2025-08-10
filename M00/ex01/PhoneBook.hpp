@@ -1,6 +1,7 @@
 # ifndef PHONEBOOK_HPP
 #  define PHONEBOOK_HP
 
+# include <string>
 # include <iostream>
 
 # include "Contact.hpp"
