@@ -130,7 +130,7 @@ Below explain the logic of the program
 08. In the event user enter SERACH command, and there are some data records availabe in the memory, all the recrds will display following the format requirments
 
     ```bash
-    index|first nam.| last name| nick name|
+     index|first nam.| last name| nick name|
          0|  Thiwanka|Somachand.|  tsomacha|
          1|     Linus|  Trovalds|  mr.linux|
          2|       Ada|  Lovelace|      goat|
