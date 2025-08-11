@@ -1,21 +1,19 @@
-# include <iostream>
-# include <ctime>
+#include <iostream>
+#include <ctime>
 
-# define HIGLIGHT_START	"\x1b[1m\x1b[38;2;0;0;0m\x1b[48;2;255;255;170m"
-# define HIGLIGHT_END	"\x1b[0m"
+#define HIGLIGHT_START	"\x1b[1m\x1b[38;2;0;0;0m\x1b[48;2;255;255;170m"
+#define HIGLIGHT_END	"\x1b[0m"
 
-# include "Account.hpp"
+#include "Account.hpp"
 
-/**
-* initializing static varibales
-*/
+// initializing static varibales
 int Account::_nbAccounts         = 0;
 int Account::_totalAmount        = 0;
 int Account::_totalNbDeposits    = 0;
 int Account::_totalNbWithdrawals = 0;
 
 /**
-* no argument constructor, will only initialize the varibales
+* @brief no argument constructor, will only initialize the varibales
 */
 Account::Account (void) {
 
@@ -26,8 +24,9 @@ Account::Account (void) {
 }
 
 /**
-* this constructor will accept a value as the initial_deposit and update records
+* @brief this constructor will accept a value as the initial_deposit and update records
 * as necessary.
+* @param initial_deposit value need to use as the initial value of the amount
 */
 Account::Account( int initial_deposit ) {
 
@@ -49,7 +48,7 @@ Account::Account( int initial_deposit ) {
 }
 
 /**
- * default destructor
+ * @brief default destructor
 */
 Account::~Account (void) {
 
@@ -66,7 +65,7 @@ Account::~Account (void) {
 }
 
 /**
- * this function is used to print the time stame
+ * @brief print the time stamp
 */
 void	Account::_displayTimestamp( void ) {
 
@@ -87,35 +86,39 @@ void	Account::_displayTimestamp( void ) {
 }
 
 /**
- * helper function to access _nbAccounts value
+ * @brief helper function to access _nbAccounts value
+ * @return _nbAccounts number of accounts in bank
 */
 int	Account:: getNbAccounts( void ) {
     return (Account::_nbAccounts);
 };
 
 /**
- * helper function to access _totalAmount value
+ * @brief helper function to access _totalAmount value
+ * @return _totalAmount total amount or the cash position of bank
 */
 int	Account:: getTotalAmount( void ) {
     return (Account::_totalAmount);
 };
 
 /**
- * helper function to access _totalNbDeposits value
+ * @brief helper function to access _totalNbDeposits value
+ * @return _totalNbDeposits total no of deposit transactions in bank
 */
 int	Account:: getNbDeposits( void ) {
     return (Account::_totalNbDeposits);
 };
 
 /**
- * helper function to access _totalNbWithdrawals value
+ * @brief helper function to access _totalNbWithdrawals value
+ * @return _totalNbWithdrawals total no of withdrawal transactions in bank
 */
 int	Account:: getNbWithdrawals( void ) {
     return (Account::_totalNbWithdrawals);
 };
 
 /**
- * displaying all the account infomation
+ * @brief displaying all the account infomation
 */
 void Account:: 	displayAccountsInfos( void ) {
 
@@ -130,7 +133,8 @@ void Account:: 	displayAccountsInfos( void ) {
 };
 
 /**
- * funtion to deposit cash to the account
+ * @brief funtion to deposit cash to the account
+ * @param deposit value need to added to the previous amount
 */
 void Account::makeDeposit( int deposit ) {
 
@@ -153,7 +157,11 @@ void Account::makeDeposit( int deposit ) {
                 << "nb_deposits:" << this->_nbDeposits << "\n";
 };
 
-// withdrawing cash from an account
+/**
+ * @brief withdrawing cash from an account
+ * @param withdrawal value need to withdraw from the previous amount
+ * @return false when the transaction was sucessful
+*/
 bool Account::makeWithdrawal( int withdrawal ) {
 
     // displaying the first part
@@ -183,14 +191,15 @@ bool Account::makeWithdrawal( int withdrawal ) {
 };
 
 /**
- * helper function to access the _amount value
+ * @brief helper function to access the _amount value
+ * @return _amount account balance
 */
 int Account::checkAmount( void ) const {
     return (this->_amount);
 };
 
 /**
- * function to display individual account status
+ * @brief function to display individual account status
 */
 void Account::displayStatus( void ) const {
 

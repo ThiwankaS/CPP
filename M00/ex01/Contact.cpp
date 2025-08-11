@@ -1,7 +1,8 @@
 # include "Contact.hpp"
 
 /**
- * no data provided during the object creation hence assigning the default values
+ * @brief no data provided during the object creation hence assigning
+ * the default values
 */
 Contact::Contact(void) {
     first_name_     = "xxxxxxxxxx";
@@ -12,7 +13,7 @@ Contact::Contact(void) {
 }
 
 /**
- * all the required data is provided and all the varibales will be assigned
+ * @brief  all the required data is provided and all the varibales will be assigned
  * the corresponding values
 */
 Contact :: Contact (
@@ -30,7 +31,8 @@ Contact :: Contact (
 }
 
 /**
- * displaying all the filed in a contact record follwing the formatting guidelines
+ * @brief  displaying all the filed in a contact record follwing the formatting
+ * guidelines
 */
 void Contact::print(void) {
     printColumn(this->first_name_);
@@ -39,7 +41,7 @@ void Contact::print(void) {
 }
 
 /**
- * displaying  all the filed in a contact record one filed in line
+ * @brief  displaying  all the filed in a contact record one filed in line
 */
 void Contact::view(void) {
     std::cout << "\n";

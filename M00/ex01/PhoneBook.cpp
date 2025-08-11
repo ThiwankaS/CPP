@@ -1,10 +1,16 @@
 # include "PhoneBook.hpp"
 
-// no argument constructor will intialized the read/write head to zero
+/**
+ * @brief constructor will intialized the read/write head to zero
+ */
 PhoneBook::PhoneBook () {
     rw_head = 0;
 }
 
+/**
+ * @brief adding record to the phonebook
+ * @param contact new record need to added
+*/
 void PhoneBook::addRecord(const Contact contact) {
     int index = this->rw_head % size;
     this->records[index] = contact;
@@ -12,6 +18,10 @@ void PhoneBook::addRecord(const Contact contact) {
     std::cout << "contact added successfully !" << std::endl;
 }
 
+/**
+ * @brief displaying the content of a record after search by the index
+ * @param index index of the contact record in the array
+*/
 void PhoneBook::viewSingleContact(int index) {
 
     // index should be with in the range of records saved
@@ -24,6 +34,9 @@ void PhoneBook::viewSingleContact(int index) {
     }
 }
 
+/**
+ * @brief displaying the full list of contacts stored in the array
+*/
 bool PhoneBook::viewAllContacts(void) {
 
     if (this->rw_head == 0) {
@@ -49,6 +62,10 @@ bool PhoneBook::viewAllContacts(void) {
     }
 }
 
+/**
+ * @brief add test data, exatly 06 data records to make iot easy to test the circular
+ * index correctly working
+*/
 void PhoneBook::addSomeTestDate(void) {
 
     this->addRecord(Contact (

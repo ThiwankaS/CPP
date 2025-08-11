@@ -1,7 +1,7 @@
-# include <iostream>
+#include <iostream>
 
-# include "utilities.hpp"
-# include "PhoneBook.hpp"
+#include "utilities.hpp"
+#include "PhoneBook.hpp"
 
 // helper functions declaration
 void process_choice(std::string choice, PhoneBook& my_phone_book);
@@ -48,7 +48,11 @@ int main(void) {
     return (0);
 }
 
-// invoking funtionalities based on the user's choice
+/**
+ * @brief invoking funtionalities based on the user's choice
+ * @param choice a string
+ * @param my_phone_book refernce to the Phonebook instance
+ */
 void process_choice(std::string choice, PhoneBook& my_phone_book) {
 
     if(choice == "ADD")
@@ -60,7 +64,10 @@ void process_choice(std::string choice, PhoneBook& my_phone_book) {
     choice.clear();
 }
 
-// adding a new contact to the phonbook
+/**
+ * @brief adding a new contact to the phonbook
+ * @param my_phone_book refernce to the Phonebook instance
+ */
 void contact_add(PhoneBook& my_phone_book) {
 
     std::string f_name, l_name, n_name, p_number, secret;
@@ -144,7 +151,10 @@ void contact_add(PhoneBook& my_phone_book) {
     my_phone_book.addRecord(Contact(f_name, l_name, n_name, p_number, secret));
 }
 
-// travese through my_phonebook and display records
+/**
+ * @brief travese through my_phonebook and display records
+ * @param my_phone_book refernce to the Phonebook instance
+ */
 void contact_search(PhoneBook& my_phone_book) {
 
     std::string input;

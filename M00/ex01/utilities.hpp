@@ -1,10 +1,10 @@
-# ifndef UTILITIES_HPP
-#  define UTILITIES_HPP
+#ifndef UTILITIES_HPP
+#define UTILITIES_HPP
 
-# include <iostream>
-# include <string>
-# include <regex>
-# include <iomanip>
+#include <iostream>
+#include <string>
+#include <regex>
+#include <iomanip>
 
 // constant to detemine the column width in printColumn
 constexpr int width = 10;
@@ -18,4 +18,4 @@ bool isValidIndex(std::string index);
 // displaying a string based on predefined format
 void printColumn(const std::string text);
 
-# endif
+#endif

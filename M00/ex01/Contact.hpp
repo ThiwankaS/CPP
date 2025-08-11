@@ -1,11 +1,14 @@
-# ifndef CONTACT_HPP
-#  define CONTACT_HPP
+#ifndef CONTACT_HPP
+#define CONTACT_HPP
 
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
 
-# include "utilities.hpp"
+#include "utilities.hpp"
 
+/**
+ * @brief Contact class implementation
+*/
 class Contact {
 
     private :
@@ -33,4 +36,4 @@ class Contact {
         void view(void);
 };
 
-# endif
+#endif

@@ -1,15 +1,18 @@
-# ifndef PHONEBOOK_HPP
-#  define PHONEBOOK_HP
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HP
 
-# include <string>
-# include <iostream>
+#include <string>
+#include <iostream>
 
-# include "Contact.hpp"
+#include "Contact.hpp"
 
 
 //size will detemine the number of records program will allocate memory
 constexpr int size  = 8;
 
+/**
+ * @brief class implementaion of Phonebook
+*/
 class PhoneBook {
 
     private :
@@ -34,4 +37,4 @@ class PhoneBook {
         void addSomeTestDate(void);
 };
 
-# endif
+#endif
