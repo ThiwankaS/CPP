@@ -24,6 +24,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 SRCS    = \
 	test.cpp\
 	Zombie.cpp\
+	newZombie.cpp\
 	main.cpp
 
 # Object files for release build.
