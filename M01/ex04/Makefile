@@ -22,7 +22,6 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
-	test.cpp\
 	utilities.cpp\
 	main.cpp
 
