@@ -10,13 +10,13 @@ class HumanA {
 
     private:
         std::string name;
-        Weapon&      weapon;
+        Weapon&     weapon;
 
     public:
-        // default constructor
-        HumanA();
+        // removing default constructor
+        HumanA() = delete;
         // parameterized constructor
-        HumanA(const std::string& name, const Weapon& weapon);
+        HumanA(const std::string& name, Weapon& weapon);
         // copy constructctor
         HumanA(const HumanA& other);
         // assignment operator

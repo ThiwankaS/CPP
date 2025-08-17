@@ -25,6 +25,7 @@ SRCS    = \
 	test.cpp\
 	Weapon.cpp\
 	HumanA.cpp\
+	HumanB.cpp\
 	main.cpp
 
 # Object files for release build.

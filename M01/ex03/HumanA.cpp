@@ -1,33 +1,45 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA ()
-    : weapon(Weapon("default")){
-    std::cout << "Default constructor called \n";
-}
-
-HumanA::HumanA (const std::string& name, const Weapon& weapon)
+/**
+ * implementing parametized constructor, this will be the default constructor
+ * because default constructor got removed
+ */
+HumanA::HumanA(const std::string& name, Weapon& weapon)
     : name(name), weapon(weapon) {
-    std::cout << "Parameterized constructor called \n";
+    std::cout << "Parameterized constructor [HumanA] called \n";
 }
 
+/**
+ * implementing copy constructor
+ */
 HumanA::HumanA (const HumanA& other)
     : name(other.name), weapon(other.weapon) {
-    std::cout << "Copy constructor called \n";
+    std::cout << "Copy constructor [HumanA] called \n";
 }
 
+/**
+ * implementing assignment operator
+ */
 HumanA& HumanA::operator=(const HumanA& other) {
     if (this != &other) {
         this->name   = other.name;
         this->weapon = other.weapon;
     }
-    std::cout << "Assignment operator called \n";
+    std::cout << "Assignment operator [HumanA] called \n";
     return (*this);
 }
 
+/**
+ * implementing default destructor
+ */
 HumanA::~HumanA() {
-    std::cout << "Default destructor called \n";
+    std::cout << "Default destructor [HumanA] called \n";
 }
 
+/**
+ * @brief attack function will display a formated string base
+ * on the "name" and the "wepon type" of the caller
+ */
 void HumanA::attack(void) {
     std::cout << name
               << " attacks with their "
