@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include "test.hpp"
 #include "Fixed.hpp"
 
 int main (void) {
