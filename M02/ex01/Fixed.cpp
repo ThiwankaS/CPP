@@ -34,12 +34,12 @@ Fixed::~Fixed() {
 }
 
 int Fixed::getRawBits(void) const {
-    std::cout << "getRawBits member function called. \n";
+    //std::cout << "getRawBits member function called. \n";
     return (fp_vlaue);
 }
 
 void Fixed::setRawBits(int const raw) {
-    std::cout << "setRawBits member function called. \n";
+    //std::cout << "setRawBits member function called. \n";
     fp_vlaue = raw;
 }
 
