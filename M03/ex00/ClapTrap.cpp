@@ -5,7 +5,7 @@ ClapTrap::ClapTrap()
     std::cout << "Default constructor called.\n";
 }
 
-ClapTrap::ClapTrap(const std::string name)
+ClapTrap::ClapTrap(const std::string& name)
 : name (name), hit_points(10), energy_points(10), attack_damage(0) {
   std::cout << "Argument constructor called.\n";
 }
@@ -30,7 +30,7 @@ ClapTrap::~ClapTrap() {
     std::cout << "Default destructor called.\n";
 }
 
-std::string ClapTrap::getName(void) {
+const std::string& ClapTrap::getName(void) {
     return (name);
 }
 
@@ -54,7 +54,7 @@ void ClapTrap::setEnergyPoints(unsigned int amount) {
     this->energy_points = amount;
 }
 
-void ClapTrap::setAttackDmage(unsigned int amount) {
+void ClapTrap::setAttackDamage(unsigned int amount) {
     this->attack_damage = amount;
 }
 

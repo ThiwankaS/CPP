@@ -15,13 +15,13 @@ class ClapTrap {
     public:
         //constructors & destructors
         ClapTrap();
-        ClapTrap(const std::string name);
+        ClapTrap(const std::string& name);
         ClapTrap(const ClapTrap& other);
         ClapTrap& operator=(const ClapTrap &other);
         ~ClapTrap();
 
         //getters
-        std::string getName(void);
+        const std::string& getName(void);
         unsigned int getHitPoints(void);
         unsigned int getEnergyPoint(void);
         unsigned int getAttackDamage(void);
@@ -29,7 +29,7 @@ class ClapTrap {
         //setters
         void setHitPoints(unsigned int amount);
         void setEnergyPoints(unsigned int amount);
-        void setAttackDmage(unsigned int amount);
+        void setAttackDamage(unsigned int amount);
 
         //class methods
         void printStatus(void);

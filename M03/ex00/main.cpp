@@ -37,7 +37,7 @@ int main (void) {
     TEST_NAME("<Megatron> update attack damage to 05");
     A.printStatus();
     B.printStatus();
-    B.setAttackDmage(5);
+    B.setAttackDamage(5);
     NEW_LINE;
 
     test("test case 06");
