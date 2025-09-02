@@ -47,5 +47,11 @@ int main (void) {
         NEW_LINE;
     }
 
+    test("test case 07");
+    TEST_NAME("Creating an instance on the heap with the name <Jetleg>");
+    ClapTrap *ptr = new ClapTrap("Jetleg");
+    delete ptr;
+    NEW_LINE;
+
     return (EXIT_SUCCESS);
 }
