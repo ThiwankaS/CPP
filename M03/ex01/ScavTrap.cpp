@@ -11,8 +11,8 @@ ScavTrap::ScavTrap()
               << "]\n";
 }
 
-ScavTrap::ScavTrap(std::string name)
-: ClapTrap(name) {
+ScavTrap::ScavTrap(const std::string& _name)
+: ClapTrap(_name) {
     is_in_gate_keeper_mode = false;
     hit_points = 100;
     energy_points = 50;

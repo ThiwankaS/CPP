@@ -9,7 +9,7 @@ NAME    = scavTrap
 CMD     = c++
 
 # Additional warings and errors
-WARN	= -Wall -Wextra -Werror
+WARN	= -Wall -Wextra -Werror -Wshadow
 
 # Language standrad version
 STD		= -std=c++20

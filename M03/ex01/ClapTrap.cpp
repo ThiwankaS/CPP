@@ -7,8 +7,8 @@ ClapTrap::ClapTrap()
               << "]\n";
 }
 
-ClapTrap::ClapTrap(const std::string& name)
-: name (name), hit_points(10), energy_points(10), attack_damage(0) {
+ClapTrap::ClapTrap(const std::string& _name)
+: name (_name), hit_points(10), energy_points(10), attack_damage(0) {
   std::cout << "ClapTrap argument constructor called.["
               << name
               << "]\n";

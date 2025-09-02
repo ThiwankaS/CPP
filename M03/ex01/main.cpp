@@ -52,6 +52,6 @@ int main (void) {
     ptr->printStatus();
     delete ptr;
     NEW_LINE;
-
+    
     return (EXIT_SUCCESS);
 }

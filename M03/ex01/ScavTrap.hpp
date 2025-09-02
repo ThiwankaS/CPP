@@ -11,7 +11,7 @@ class ScavTrap: public ClapTrap {
     public:
         //constructors & destructors
         ScavTrap();
-        ScavTrap(std::string name);
+        ScavTrap(const std::string& _name);
         ScavTrap(const ScavTrap& other);
         ScavTrap& operator=(const ScavTrap& other);
         ~ScavTrap();
