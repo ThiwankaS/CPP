@@ -46,5 +46,12 @@ int main (void) {
     B.guardGate();
     NEW_LINE;
 
+    test("test case 07");
+    TEST_NAME("Creating a ClapTrap base pointer and assing new instance of ScavTrap");
+    ClapTrap* ptr = new ScavTrap("Ironhide");
+    ptr->printStatus();
+    delete ptr;
+    NEW_LINE;
+
     return (EXIT_SUCCESS);
 }
