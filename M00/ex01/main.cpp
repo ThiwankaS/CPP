@@ -37,7 +37,12 @@ int main(void) {
         std::cout << "  EXIT    -> to exit the program.      " << std::endl;
         std::cout << " --------------------------------------" << std::endl;
         std::cout << "  your choice : ";
-        std::getline(std::cin, choice);
+
+        if(!std::getline(std::cin, choice)) {
+            std::cout << "EOF detected, leaving the program !\n";
+            break;
+        }
+
         if (choice == "EXIT")
         {
             std::cout << "leaving the program." << std::endl;
