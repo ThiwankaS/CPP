@@ -22,6 +22,8 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
+	WrongAnimal.cpp\
+	WrongCat.cpp\
 	Animal.cpp\
 	Dog.cpp\
 	Cat.cpp\
