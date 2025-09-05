@@ -3,7 +3,7 @@
 
 #include "Animal.hpp"
 
-class Dog : virtual public Animal {
+class Dog : public Animal {
 
 	private:
 		std::string name;

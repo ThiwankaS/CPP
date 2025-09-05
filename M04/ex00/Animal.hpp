@@ -19,7 +19,7 @@ class Animal {
 		~Animal();
 
 		//class methods
-		virtual void makeSound(void) const;
+		void makeSound(void) const;
 };
 
 #endif
