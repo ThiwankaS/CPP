@@ -7,7 +7,7 @@
 #define SIZE 4
 
 class Character : public ICharacter {
-    
+
     private:
         std::string name;
         AMateria* inventory[SIZE];
@@ -17,7 +17,7 @@ class Character : public ICharacter {
         Character(const std::string& _name);
         Character(const Character& other);
         Character& operator=(const Character& other);
-        ~Character();
+        virtual ~Character();
 
         std::string const & getName() const override;
         void equip(AMateria* m) override;

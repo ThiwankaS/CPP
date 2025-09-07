@@ -23,6 +23,10 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 # Source files.
 SRCS    = \
 	AMateria.cpp\
+	Character.cpp\
+	Cure.cpp\
+	Ice.cpp\
+	MateriaSource.cpp\
 	test.cpp\
 	main.cpp
 
