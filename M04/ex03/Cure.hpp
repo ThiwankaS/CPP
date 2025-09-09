@@ -15,7 +15,7 @@ class Cure : public AMateria {
         ~Cure();
 
         AMateria* clone() const override;
-        void use(ICharacter& target);
+        void use(ICharacter& target) override;
 };
 
 #endif
