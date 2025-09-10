@@ -12,7 +12,7 @@ class Ice : public AMateria {
         ~Ice();
 
         AMateria* clone() const override;
-        void use(ICharacter& target);
+        void use(ICharacter& target) override;
 };
 
 #endif
