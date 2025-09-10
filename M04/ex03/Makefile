@@ -37,7 +37,11 @@ R_OBJS    = $(SRCS:.cpp=.o)
 D_OBJS    = $(SRCS:.cpp=.debug.o)
 
 # Default target: build the release version.
-all     : $(NAME)
+all     : version $(NAME)
+
+version :
+	@echo "Compiler : $(CXX)"
+	@$(CXX) --version | head -n 1
 
 # Build the final executable with release flags.
 $(NAME) : $(R_OBJS)
