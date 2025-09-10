@@ -24,7 +24,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 SRCS    = \
 	Bureaucrat.cpp\
 	test.cpp\
-	main.cpp 
+	main.cpp
 
 # Object files for release build.
 R_OBJS    = $(SRCS:.cpp=.o)
@@ -33,7 +33,11 @@ R_OBJS    = $(SRCS:.cpp=.o)
 D_OBJS    = $(SRCS:.cpp=.debug.o)
 
 # Default target: build the release version.
-all     : $(NAME)
+all     : version $(NAME)
+
+version :
+	@echo "Compiler : $(CXX)"
+	@$(CXX) --version | head -n 1
 
 # Build the final executable with release flags.
 $(NAME) : $(R_OBJS)

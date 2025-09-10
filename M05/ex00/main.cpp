@@ -5,9 +5,17 @@
 
 int main (void) {
 
-	LINE_DATA;
-	Bureaucrat b("Thiwanka", 110);
-	b.print();
-
+	try
+	{
+		Bureaucrat b("Thiwanka", 1);
+		b.print();
+		b.decrementGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr <<"Error : "
+				  << e.what()
+				  << std::endl;
+	}
     return (EXIT_SUCCESS);
 }

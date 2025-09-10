@@ -3,20 +3,46 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
 
 class Bureaucrat {
 
     private:
         const std::string name;
-        const int grade;
+        int grade;
     public:
+        //constructor & destructor
         Bureaucrat();
-        Bureaucrat(const std::string& _name, const int _grade);
+        Bureaucrat(const std::string& _name, int _grade);
         Bureaucrat(const Bureaucrat& other);
-        Bureaucrat& operator=(const Bureaucrat& other) = delete;
+        Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
+
+        //class methods
+        bool validateGrade(int grade) const;
+        int getGrade(void) const;
+        std::string getName(void) const;
+        void setGrade(int g);
+        void incrementGrade(void);
+        void decrementGrade(void);
+
+        //exception handling
+        class GradeException : public std::exception {
+
+            public:
+                enum Type { TooHigh , TooLow };
+                explicit GradeException (Type _type) noexcept
+                    : type(_type) {}
+                virtual const char *what() const noexcept override;
+                Type getType() const noexcept {
+                    return (type);
+                }
+
+            private:
+                Type type;
+        };
         void print(void) {
-            std::cout << "name : " << name << " | grade : " << grade << std::endl; 
+            std::cout << "name : " << name << " | grade : " << grade << std::endl;
         }
 };
 
