@@ -21,9 +21,22 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other)
     validateGrade(grade);
 }
 
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
+    if(this != &other) {
+            grade = other.grade;
+            /**
+             * this will not work or even compile, but subject force us to implement
+             * assigment operator, this assigment perator should not call under any
+             * circumstance becaue it is not producing correct results
+            */
+            //name = other.name;
+    }
+    return (*this);
+}
+
 Bureaucrat::~Bureaucrat() { }
 
-const char* Bureaucrat::GradeException::what() const noexcept {
+const char* Bureaucrat::GradeException::what() const throw() {
     return (
         type == TooHigh
             ? "Grade too high"

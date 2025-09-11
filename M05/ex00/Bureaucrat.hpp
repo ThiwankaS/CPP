@@ -11,11 +11,11 @@ class Bureaucrat {
         const std::string name;
         int grade;
     public:
-        //constructor & destructor
+        //constructors & destructor
         Bureaucrat();
         Bureaucrat(const std::string& _name, int _grade);
         Bureaucrat(const Bureaucrat& other);
-        Bureaucrat& operator=(const Bureaucrat& other) = delete;
+        Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
 
         //class methods
@@ -30,13 +30,10 @@ class Bureaucrat {
         class GradeException : public std::exception {
 
             public:
-                enum Type { TooHigh , TooLow };
-                explicit GradeException (Type _type) noexcept
+                enum Type { TooHigh, TooLow };
+                explicit GradeException (Type _type) throw()
                     : type(_type) {}
-                virtual const char *what() const noexcept override;
-                Type getType() const noexcept {
-                    return (type);
-                }
+                virtual const char *what() const throw() override;
 
             private:
                 Type type;
