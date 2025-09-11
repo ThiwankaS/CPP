@@ -1,27 +1,36 @@
 #include "GradeException.hpp"
 
 GradeException::GradeException() noexcept
-: type(Unknown) {}
+: type(Unknown) {
+    std::cout << "GradeException default constructor.\n";
+}
 
 GradeException::GradeException(Type _type) noexcept
-: type(_type) {}
+: type(_type) {
+    std::cout << "GradeException argument constructor.\n";
+}
 
 GradeException::GradeException(const GradeException& other) noexcept
-: type(other.type) {}
+: type(other.type) {
+    std::cout << "GradeException copy constructor.\n";
+}
 
-GradeException& GradeException::operator=(const GradeException& other) {
+GradeException& GradeException::operator=(const GradeException& other) noexcept {
     if(this != &other) {
         *this = other;
     }
+    std::cout << "GradeException assigment operator.\n";
     return (*this);
 }
 
 const char* GradeException::GradeException::what() const throw() {
     return (
         type == TooHigh
-            ? "Grade too high"
-            : "Grade too low"
+            ? "Grade too high (Maximum possible garde 1)"
+            : "Grade too low  (Minimum possible grade 150)"
     );
 }
 
-GradeException::~GradeException () {}
+GradeException::~GradeException () {
+    std::cout << "GradeException destructor.\n";
+}

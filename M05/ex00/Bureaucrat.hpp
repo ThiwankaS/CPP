@@ -8,9 +8,6 @@
 
 class Bureaucrat {
 
-    private:
-        const std::string name;
-        int grade;
     public:
         //constructors & destructor
         Bureaucrat();
@@ -28,7 +25,19 @@ class Bureaucrat {
         void decrementGrade(void);
 
         //exception handling
-        class GradeTooHighException : virtual public GradeException {};
+        class GradeTooHighException : virtual public GradeException {
+            public:
+                explicit GradeTooHighException(Type _type) : GradeException(_type) {}
+        };
+
+        class GradeTooLowException : virtual public GradeException {
+            public:
+                explicit GradeTooLowException(Type _type) : GradeException(_type) {}
+        };
+    
+    private:
+        const std::string name;
+        int grade;
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);

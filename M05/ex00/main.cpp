@@ -52,7 +52,7 @@ int main (void) {
 		TEST_NAME("Increase the grade of a bureaucrat to invalid grade");
 		LINE_DATA;
 		try {
-				Bureaucrat b("Eddie", 150);
+				Bureaucrat b("Eddie", 1);
 				std::cout << b << std::endl;
 				LINE_DATA;
 				b.incrementGrade();
@@ -71,7 +71,7 @@ int main (void) {
 				Bureaucrat b("Eddie", 2);
 				std::cout << b << std::endl;
 				LINE_DATA;
-				b.decrementGrade();
+				b.incrementGrade();
 				std::cout << b << std::endl;
 		} catch(const std::exception& e){
 			std::cerr <<"Error : "
@@ -87,7 +87,7 @@ int main (void) {
 				Bureaucrat b("Eddie", 1);
 				std::cout << b << std::endl;
 				LINE_DATA;
-				b.decrementGrade();
+				b.incrementGrade();
 				std::cout << b << std::endl;
 		} catch(const std::exception& e){
 			std::cerr <<"Error : "

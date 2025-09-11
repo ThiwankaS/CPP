@@ -4,21 +4,25 @@ bool Bureaucrat::validateGrade(int g) const {
     if (g < 1)
         throw GradeTooHighException(GradeTooHighException::TooHigh);
     if (g > 150)
-        throw GradeException(GradeException::TooHigh);
+        throw GradeException(GradeException::TooLow);
     return (true);
 }
 
 Bureaucrat::Bureaucrat()
-: name("default"), grade(150) { }
+: name("default"), grade(150) {
+    std::cout << "Bureaucrat default constructor.\n";
+ }
 
 Bureaucrat::Bureaucrat(const std::string& _name, int _grade)
 : name(_name), grade(_grade) {
     validateGrade(grade);
+    std::cout << "Bureaucrat argument constructor.\n";
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other)
 : name(other.name), grade(other.grade) {
     validateGrade(grade);
+    std::cout << "Bureaucrat copy constructor.\n";
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
@@ -31,10 +35,13 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
             */
             //name = other.name;
     }
+    std::cout << "Bureaucrat assigment operator.\n";
     return (*this);
 }
 
-Bureaucrat::~Bureaucrat() { }
+Bureaucrat::~Bureaucrat() { 
+    std::cout << "Bureaucrat destructor.\n";
+}
 
 int Bureaucrat::getGrade(void) const {
     return (grade);
@@ -45,12 +52,12 @@ std::string Bureaucrat::getName(void) const {
 }
 
 void Bureaucrat::incrementGrade(void) {
-    grade += 1;
+    grade -= 1;
     validateGrade(grade);
 }
 
 void Bureaucrat::decrementGrade(void) {
-    grade -= 1;
+    grade += 1;
     validateGrade(grade);
 }
 
