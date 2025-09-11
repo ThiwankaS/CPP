@@ -9,9 +9,7 @@ bool Bureaucrat::validateGrade(int g) const {
 }
 
 Bureaucrat::Bureaucrat()
-: name("default"), grade(150) {
-    std::cout << "Bureaucrat default constructor is called" << std::endl;
-}
+: name("default"), grade(150) { }
 
 Bureaucrat::Bureaucrat(const std::string& _name, int _grade)
 : name(_name), grade(_grade) {
@@ -21,14 +19,6 @@ Bureaucrat::Bureaucrat(const std::string& _name, int _grade)
 Bureaucrat::Bureaucrat(const Bureaucrat& other)
 : name(other.name), grade(other.grade) {
     validateGrade(grade);
-}
-
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
-    if(this != &other) {
-        grade = other.grade;
-        validateGrade(grade);
-    }
-    return (*this);
 }
 
 Bureaucrat::~Bureaucrat() { }
@@ -57,4 +47,16 @@ void Bureaucrat::incrementGrade(void) {
 void Bureaucrat::decrementGrade(void) {
     grade -= 1;
     validateGrade(grade);
+}
+
+void Bureaucrat::setGrade(int g) {
+    this->grade = g;
+    validateGrade(grade);
+}
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b) {
+    os << b.getName()
+       << ", bureaucrat grade "
+       << b.getGrade();
+    return (os);
 }

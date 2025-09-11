@@ -15,7 +15,7 @@ class Bureaucrat {
         Bureaucrat();
         Bureaucrat(const std::string& _name, int _grade);
         Bureaucrat(const Bureaucrat& other);
-        Bureaucrat& operator=(const Bureaucrat& other);
+        Bureaucrat& operator=(const Bureaucrat& other) = delete;
         ~Bureaucrat();
 
         //class methods
@@ -41,9 +41,8 @@ class Bureaucrat {
             private:
                 Type type;
         };
-        void print(void) {
-            std::cout << "name : " << name << " | grade : " << grade << std::endl;
-        }
 };
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
 
 #endif
