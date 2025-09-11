@@ -8,6 +8,10 @@
 
 class Bureaucrat {
 
+    private:
+        const std::string name;
+        int grade;
+
     public:
         //constructors & destructor
         Bureaucrat();
@@ -36,10 +40,6 @@ class Bureaucrat {
                 return "Grade too low : Minimum possible value 150";
             }
         };
-
-    private:
-        const std::string name;
-        int grade;
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
