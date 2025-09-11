@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include <exception>
+
+#include "GradeException.hpp"
 
 class Bureaucrat {
 
@@ -27,17 +28,7 @@ class Bureaucrat {
         void decrementGrade(void);
 
         //exception handling
-        class GradeException : public std::exception {
-
-            public:
-                enum Type { TooHigh, TooLow };
-                explicit GradeException (Type _type) throw()
-                    : type(_type) {}
-                virtual const char *what() const throw() override;
-
-            private:
-                Type type;
-        };
+        class GradeTooHighException : virtual public GradeException {};
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);

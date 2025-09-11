@@ -2,7 +2,7 @@
 
 bool Bureaucrat::validateGrade(int g) const {
     if (g < 1)
-        throw GradeException(GradeException::TooLow);
+        throw GradeTooHighException(GradeTooHighException::TooHigh);
     if (g > 150)
         throw GradeException(GradeException::TooHigh);
     return (true);
@@ -35,14 +35,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
 }
 
 Bureaucrat::~Bureaucrat() { }
-
-const char* Bureaucrat::GradeException::what() const throw() {
-    return (
-        type == TooHigh
-            ? "Grade too high"
-            : "Grade too low"
-    );
-}
 
 int Bureaucrat::getGrade(void) const {
     return (grade);
