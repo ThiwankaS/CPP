@@ -1,9 +1,9 @@
 #
-# Makefile for bureaucrat.
+# Makefile for maggots.
 #
 
 # Name of the program
-NAME    = bureaucrat
+NAME    = maggots
 
 # Compiler name
 CMD     = c++

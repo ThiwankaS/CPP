@@ -1,12 +1,5 @@
 #include "Bureaucrat.hpp"
-
-bool Bureaucrat::validateGrade(int g) const {
-    if (g < 1)
-        throw GradeTooHighException(GradeTooHighException::TooHigh);
-    if (g > 150)
-        throw GradeException(GradeException::TooLow);
-    return (true);
-}
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat()
 : name("default"), grade(150) {
@@ -36,11 +29,10 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
             //name = other.name;
     }
     std::cout << "Bureaucrat assigment operator.\n";
-    validateGrade(grade);
     return (*this);
 }
 
-Bureaucrat::~Bureaucrat() { 
+Bureaucrat::~Bureaucrat() {
     std::cout << "Bureaucrat destructor.\n";
 }
 
@@ -52,11 +44,46 @@ std::string Bureaucrat::getName(void) const {
     return (name);
 }
 
+/**
+ * @brief Validates the Bureaucrat's grade value.
+ * Ensures that the given grade `g` is within the allowed range [1, 150].
+ * - If `g < 1`, a `GradeTooHighException` is thrown.
+ * - If `g > 150`, a `GradeTooLowException` is thrown.
+ * - Otherwise, the grade is valid and the function returns `true`.
+ * @param g The grade value to validate.
+ * @return `true` if the grade is valid.
+ * @throws GradeTooHighException If the grade is less than 1.
+ * @throws GradeTooLowException If the grade is greater than 150.
+ */
+bool Bureaucrat::validateGrade(int g) const {
+    if (g < 1)
+        throw GradeTooHighException();
+    if (g > 150)
+        throw GradeTooLowException();
+    return (true);
+}
+
+/**
+ * @brief Increments the Bureaucrat's grade by 1.
+ * This function decreases the internal `grade` value by 1
+ * (since lower numbers represent higher grades)
+ * and then validates the updated grade using `validateGrade()`.
+ * @note Throws an exception if the resulting grade is out of bounds.
+ * @see Bureaucrat::validateGrade
+*/
 void Bureaucrat::incrementGrade(void) {
     grade -= 1;
     validateGrade(grade);
 }
 
+/**
+ * @brief Decrements the Bureaucrat's grade by 1.
+ * This function increases the internal `grade` value by 1
+ * (since higher numbers represent lower grades)
+ * and then validates the updated grade using `validateGrade()`.
+ * @note Throws an exception if the resulting grade is out of bounds.
+ * @see Bureaucrat::validateGrade
+ */
 void Bureaucrat::decrementGrade(void) {
     grade += 1;
     validateGrade(grade);
@@ -72,4 +99,21 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& b) {
        << ", bureaucrat grade "
        << b.getGrade();
     return (os);
+}
+
+void Bureaucrat::signForm(Form& f) const {
+    try {
+            f.beSigned(*this);
+            std::cout << this->getName()
+                    << "  signed "
+                    << f.getName()
+                    << " form.\n";
+    } catch(const GradeException& e) {
+            std::cerr << this->getName()
+                    << " couldn\'t signed "
+                    << f.getName()
+                    << " form because "
+                    << e.what()
+                    << "\n";
+    }
 }

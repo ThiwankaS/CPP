@@ -26,8 +26,8 @@ GradeException& GradeException::operator=(const GradeException& other) noexcept 
 const char* GradeException::GradeException::what() const throw() {
     return (
         type == TooHigh
-            ? "Grade too high (Maximum possible garde 1)"
-            : "Grade too low  (Minimum possible grade 150)"
+            ? "Grade too high"
+            : "Grade too low "
     );
 }
 

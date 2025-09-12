@@ -7,7 +7,14 @@
 
 #include "GradeException.hpp"
 
+class Bureaucrat;
 class Form {
+
+    private:
+        const std::string name;
+        bool is_signed;
+        int grade_required_sign;
+        int grade_required_execute;
 
     public:
         //constructors & destructor
@@ -18,18 +25,34 @@ class Form {
         ~Form();
 
         //exception handling
-        class GradeTooHighException : virtual public GradeException {
+        struct GradeTooHighException : public GradeException {
+            private:
+                std::string msg;
+
             public:
-                explicit GradeTooHighException(Type _type) : GradeException(_type) {}
+                explicit GradeTooHighException(const std::string& str)
+                : msg(str) {}
+                const char* what() const noexcept override {
+                    return (msg.c_str());
+                }
         };
 
-        class GradeTooLowException : virtual public GradeException {
+        struct GradeTooLowException : public GradeException {
+            private:
+                std::string msg;
+
             public:
-                explicit GradeTooLowException(Type _type) : GradeException(_type) {}
+                explicit GradeTooLowException(const std::string& str)
+                : msg(str) {}
+                const char* what() const noexcept override {
+                    return (msg.c_str());
+                }
         };
 
         //class methods
         bool validateGrade(int grade) const;
+        bool validateExecution(int grade) const;
+        bool validateSigning(int grade) const;
         std::string getName(void) const;
         bool getIsSigned(void) const;
         int getGradeRequiredToSign(void) const;
@@ -37,12 +60,7 @@ class Form {
         void setIsSigned(bool status);
         void setGradeRequiredToSign(int grade);
         void setGradeRequiredToExecute(int grade);
-
-    private:
-        const std::string name;
-        bool is_signed;
-        int grade_required_sign;
-        int grade_required_execute;
+        void beSigned(const Bureaucrat& b);
 };
 
 std::ostream& operator<<(std::ostream& os, const Form& f);

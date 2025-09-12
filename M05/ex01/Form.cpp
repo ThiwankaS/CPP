@@ -1,29 +1,26 @@
 #include "Form.hpp"
 
-bool Form::validateGrade(int g) const {
-    if (g < 1)
-        throw GradeTooHighException(GradeTooHighException::TooHigh);
-    if (g > 150)
-        throw GradeException(GradeException::TooLow);
-    return (true);
-}
+#include "Bureaucrat.hpp"
 
-Form::Form() 
+Form::Form()
 : name("default"), is_signed(false), grade_required_sign(150), grade_required_execute(149) {
     validateGrade(grade_required_sign);
     validateGrade(grade_required_execute);
+    validateExecution(grade_required_execute);
 }
 
 Form::Form(const std::string& _name, int sign_grade, int execute_grade)
 : name(_name), is_signed(false), grade_required_sign(sign_grade), grade_required_execute(execute_grade) {
     validateGrade(grade_required_sign);
     validateGrade(grade_required_execute);
+    validateExecution(grade_required_execute);
 }
 
 Form::Form(const Form& other)
 : name(other.name), is_signed(other.is_signed), grade_required_sign(other.grade_required_sign), grade_required_execute(other.grade_required_execute) {
     validateGrade(grade_required_sign);
     validateGrade(grade_required_execute);
+    validateExecution(grade_required_execute);
 }
 
 Form& Form::operator=(const Form& other) {
@@ -40,6 +37,7 @@ Form& Form::operator=(const Form& other) {
     }
     validateGrade(grade_required_sign);
     validateGrade(grade_required_execute);
+    validateExecution(grade_required_execute);
     return (*this);
 }
 
@@ -55,6 +53,37 @@ std::ostream& operator<<(std::ostream& os, const Form& f) {
        << f.getGradeRequiredToExecute()
        << std::endl;
        return (os);
+}
+
+/**
+ * @brief Validates the Bureaucrat's grade value.
+ * Ensures that the given grade `g` is within the allowed range [1, 150].
+ * - If `g < 1`, a `GradeTooHighException` is thrown.
+ * - If `g > 150`, a `GradeTooLowException` is thrown.
+ * - Otherwise, the grade is valid and the function returns `true`.
+ * @param g The grade value to validate.
+ * @return `true` if the grade is valid.
+ * @throws GradeTooHighException If the grade is less than 1.
+ * @throws GradeTooLowException If the grade is greater than 150.
+*/
+bool Form::validateGrade(int g) const {
+    if (g < 1)
+        throw GradeTooHighException("Grade too high : Maximum value possible 01");
+    if (g > 150)
+        throw GradeTooLowException("Grade too low : Minimum value possible 150");
+    return (true);
+}
+
+bool Form::validateExecution(int grade) const {
+    if (grade >= grade_required_sign)
+        throw GradeTooLowException("Grade to execute must be lager than grade to sign");
+    return (true);
+}
+
+bool Form::validateSigning(int grade) const {
+    if(grade >= grade_required_sign)
+        throw GradeTooLowException("Grade must be larger than grade to sign");
+    return (true);
 }
 
 std::string Form::getName(void) const {
@@ -87,3 +116,7 @@ void Form::setGradeRequiredToExecute(int grade) {
     validateGrade(grade_required_execute);
 }
 
+void Form::beSigned(const Bureaucrat& b) {
+    if(validateSigning(b.getGrade()))
+        setIsSigned(true);
+}

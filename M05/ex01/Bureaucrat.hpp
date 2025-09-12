@@ -6,7 +6,12 @@
 
 #include "GradeException.hpp"
 
+class Form;
 class Bureaucrat {
+
+    private:
+        const std::string name;
+        int grade;
 
     public:
         //constructors & destructor
@@ -23,21 +28,20 @@ class Bureaucrat {
         void setGrade(int g);
         void incrementGrade(void);
         void decrementGrade(void);
+        void signForm(Form& f) const;
 
         //exception handling
-        class GradeTooHighException : virtual public GradeException {
-            public:
-                explicit GradeTooHighException(Type _type) : GradeException(_type) {}
+        struct GradeTooHighException : public GradeException {
+            const char* what() const noexcept override {
+                return "Grade too high : Maximum possible value 01";
+            }
         };
 
-        class GradeTooLowException : virtual public GradeException {
-            public:
-                explicit GradeTooLowException(Type _type) : GradeException(_type) {}
+        struct GradeTooLowException : public GradeException {
+            const char* what() const noexcept override {
+                return "Grade too low : Minimum possible value 150";
+            }
         };
-    
-    private:
-        const std::string name;
-        int grade;
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
