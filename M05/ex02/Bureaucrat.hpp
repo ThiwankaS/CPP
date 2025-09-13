@@ -1,0 +1,50 @@
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
+
+#include <iostream>
+#include <string>
+
+#include "GradeException.hpp"
+
+class AForm;
+class Bureaucrat {
+
+    private:
+        const std::string name;
+        int grade;
+
+    public:
+        //constructors & destructor
+        Bureaucrat();
+        Bureaucrat(const std::string& _name, int _grade);
+        Bureaucrat(const Bureaucrat& other);
+        Bureaucrat& operator=(const Bureaucrat& other);
+        ~Bureaucrat();
+
+        //class methods
+        bool validateGrade(int grade) const;
+        int getGrade(void) const;
+        std::string getName(void) const;
+        void setGrade(int g);
+        void incrementGrade(void);
+        void decrementGrade(void);
+        void signForm(AForm& f) const;
+        void executeForm(const AForm& form) const;
+
+        //exception handling
+        struct GradeTooHighException : public GradeException {
+            const char* what() const noexcept override {
+                return "Grade too high : Maximum possible value 01";
+            }
+        };
+
+        struct GradeTooLowException : public GradeException {
+            const char* what() const noexcept override {
+                return "Grade too low : Minimum possible value 150";
+            }
+        };
+};
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
+
+#endif
