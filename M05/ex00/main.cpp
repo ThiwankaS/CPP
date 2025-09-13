@@ -2,7 +2,7 @@
 
 #include "Bureaucrat.hpp"
 #include "test.hpp"
-#include "GradeException.hpp"
+#include "CustomeException.hpp"
 
 int main (void) {
 
@@ -13,7 +13,7 @@ int main (void) {
 		try {
 				Bureaucrat b;
 				std::cout << b << std::endl;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -26,7 +26,7 @@ int main (void) {
 		try {
 				Bureaucrat b("Eddie", 1);
 				std::cout << b << std::endl;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -43,7 +43,7 @@ int main (void) {
 				b.incrementGrade();
 				std::cout << b << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -60,7 +60,7 @@ int main (void) {
 				b.decrementGrade();
 				std::cout << b << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -77,7 +77,7 @@ int main (void) {
 				b.incrementGrade();
 				std::cout << b << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -94,7 +94,7 @@ int main (void) {
 				b.decrementGrade();
 				std::cout << b << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
