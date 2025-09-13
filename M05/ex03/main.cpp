@@ -16,7 +16,7 @@ int main (void) {
     LINE_DATA;
     try {
         Intern intern;
-        AForm *f1 = intern.makeForm("SomeRandomForm", "Nowehere");
+        AForm *f1 = intern.makeForm("some random", "Nowehere");
         if(f1 != nullptr) {
             std::cout << *f1 << std::endl;
             delete f1;
@@ -31,7 +31,7 @@ int main (void) {
     LINE_DATA;
     try {
         Intern intern;
-        AForm *f1 = intern.makeForm("RobotomyRequestForm", "Factory");
+        AForm *f1 = intern.makeForm("robotomy request", "Factory");
         Bureaucrat b1("Engineer", 15), b2("Technician", 27);
         if(f1 != nullptr) {
             std::cout << *f1 << std::endl;

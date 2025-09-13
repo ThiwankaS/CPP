@@ -32,9 +32,9 @@ struct Entry {
 };
 
 static Entry const entries [] = {
-    {"ShrubberyCreationForm", &makeShrubbery},
-    {"RobotomyRequestForm", &makeRobot},
-    {"PresidentialPardonForm", &makePresident}
+    {"shrubbery creation", &makeShrubbery},
+    {"robotomy request", &makeRobot},
+    {"presidential pardon", &makePresident}
 };
 
 AForm* Intern::makeForm(const std::string& form_name, const std::string& target) const throw() {
