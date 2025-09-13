@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "GradeException.hpp"
+#include "CustomeException.hpp"
 
 class AForm;
 class Bureaucrat {
@@ -32,13 +32,13 @@ class Bureaucrat {
         void executeForm(const AForm& form) const;
 
         //exception handling
-        struct GradeTooHighException : public GradeException {
+        struct GradeTooHighException : public CustomeException {
             const char* what() const noexcept override {
                 return "Grade too high : Maximum possible value 01";
             }
         };
 
-        struct GradeTooLowException : public GradeException {
+        struct GradeTooLowException : public CustomeException {
             const char* what() const noexcept override {
                 return "Grade too low : Minimum possible value 150";
             }

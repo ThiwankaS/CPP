@@ -3,7 +3,7 @@
 #include "AForm.hpp"
 #include "test.hpp"
 #include "Bureaucrat.hpp"
-#include "GradeException.hpp"
+#include "CustomeException.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -18,7 +18,7 @@ int main (void) {
         RobortomyRequestForm rb("Leave request");
         b2.signForm(rb);
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -31,7 +31,7 @@ int main (void) {
         Bureaucrat b1("Manager", 15), b2("Officer", 27);
         RobortomyRequestForm rb("Leave request");
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -45,7 +45,7 @@ int main (void) {
         RobortomyRequestForm rb("Leave request");
         b2.signForm(rb);
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -59,7 +59,7 @@ int main (void) {
         RobortomyRequestForm rb("Leave request");
         b2.signForm(rb);
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -73,7 +73,7 @@ int main (void) {
         PresidentialPardonForm pp("Pardon request");
         b2.signForm(pp);
         b1.executeForm(pp);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -87,7 +87,7 @@ int main (void) {
         PresidentialPardonForm pp("Pardon request");
         b2.signForm(pp);
         b1.executeForm(pp);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -101,7 +101,7 @@ int main (void) {
         RobortomyRequestForm rb("Excavate request");
         b2.signForm(rb);
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -115,7 +115,7 @@ int main (void) {
         RobortomyRequestForm rb("Excavate request");
         b2.signForm(rb);
         b1.executeForm(rb);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -129,7 +129,7 @@ int main (void) {
         ShrubberyCreationForm sc("Jungle");
         b2.signForm(sc);
         b1.executeForm(sc);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -143,7 +143,7 @@ int main (void) {
         ShrubberyCreationForm sc("Jungle");
         b2.signForm(sc);
         b1.executeForm(sc);
-    } catch (const GradeException& e) {
+    } catch (const CustomeException& e) {
         std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;

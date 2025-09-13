@@ -26,7 +26,7 @@ SRCS    = \
 	ShrubberyCreationForm.cpp\
 	RobotomyRequestForm.cpp\
 	PresidentialPardonForm.cpp\
-	GradeException.cpp\
+	CustomeException.cpp\
 	Bureaucrat.cpp\
 	test.cpp\
 	main.cpp

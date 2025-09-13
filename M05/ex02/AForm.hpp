@@ -5,7 +5,7 @@
 #include <string>
 #include <exception>
 
-#include "GradeException.hpp"
+#include "CustomeException.hpp"
 
 class Bureaucrat;
 class AForm {
@@ -25,7 +25,7 @@ class AForm {
         ~AForm();
 
         //exception handling
-        struct GradeTooHighException : public GradeException {
+        struct GradeTooHighException : public CustomeException {
             private:
                 std::string msg;
 
@@ -37,7 +37,7 @@ class AForm {
                 }
         };
 
-        struct GradeTooLowException : public GradeException {
+        struct GradeTooLowException : public CustomeException {
             private:
                 std::string msg;
 
@@ -49,7 +49,7 @@ class AForm {
                 }
         };
 
-        struct FormNotSigned : public GradeException {
+        struct FormNotSigned : public CustomeException {
             private:
                 std::string msg;
 
