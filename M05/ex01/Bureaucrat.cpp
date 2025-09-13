@@ -108,7 +108,7 @@ void Bureaucrat::signForm(Form& f) const {
                     << "  signed "
                     << f.getName()
                     << " form.\n";
-    } catch(const GradeException& e) {
+    } catch(const CustomeException& e) {
             std::cerr << this->getName()
                     << " couldn\'t signed "
                     << f.getName()

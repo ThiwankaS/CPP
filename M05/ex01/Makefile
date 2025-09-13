@@ -23,7 +23,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 # Source files.
 SRCS    = \
 	Form.cpp\
-	GradeException.cpp\
+	CustomeException.cpp\
 	Bureaucrat.cpp\
 	test.cpp\
 	main.cpp

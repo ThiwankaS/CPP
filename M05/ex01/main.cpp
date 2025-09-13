@@ -3,7 +3,7 @@
 #include "Form.hpp"
 #include "test.hpp"
 #include "Bureaucrat.hpp"
-#include "GradeException.hpp"
+#include "CustomeException.hpp"
 
 int main (void) {
 
@@ -16,7 +16,7 @@ int main (void) {
 				LINE_DATA;
 				std::cout << f << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -31,7 +31,7 @@ int main (void) {
 				LINE_DATA;
 				std::cout << f << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -46,7 +46,7 @@ int main (void) {
 				LINE_DATA;
 				std::cout << f << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -61,7 +61,7 @@ int main (void) {
 				LINE_DATA;
 				std::cout << f << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -77,7 +77,7 @@ int main (void) {
 				LINE_DATA;
 				std::cout << f << std::endl;
 				LINE_DATA;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -98,7 +98,7 @@ int main (void) {
 				b.signForm(f);
 				LINE_DATA;
 				std::cout << f << std::endl;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
@@ -119,7 +119,7 @@ int main (void) {
 				b.signForm(f);
 				LINE_DATA;
 				std::cout << f << std::endl;
-		} catch(const GradeException& e){
+		} catch(const CustomeException& e){
 			std::cerr <<"Error : "
 				  << e.what()
 				  << std::endl;
