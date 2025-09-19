@@ -33,5 +33,23 @@ int main(int, char**)
     } catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
+
+    Array<int>num;
+    num = numbers;
+
+    for(int i = 0;i < 5; i++){
+        std::cout << "num[" << i << "] : " << num[i] << std::endl;
+    }
+    std::cout << "\n";
+
+    numbers[4] = 10;
+
+    for(int i = 0;i < 5; i++){
+        std::cout << "num[" << i << "] : " << num[i] << std::endl;
+    }
+    std::cout << "\n";
+
+    Array<float>distance;
+
     return 0;
 }
