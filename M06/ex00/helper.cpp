@@ -42,6 +42,7 @@ bool is_fractional_number(const std::string& arg) {
 bool is_scientific_notaion(const std::string& arg) {
     return (std::regex_match(arg, scientific_notation));
 }
+
 void handle_special(const std::string& arg) {
     std::cout << "char      : impossible" << std::endl;
     std::cout << "int       : impossible" << std::endl;
@@ -70,6 +71,29 @@ void handle_char(int value) {
         std::cout << "char      : impossible"  << std::endl;
 }
 
+void handle_int(double value) {
+    if(value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max()){
+        handle_char(static_cast<int>(value));
+        std::cout << "int       : " << static_cast<int>(value) << std::endl;
+    } else {
+        std::cout << "char      : impossible" << std::endl;
+        std::cout << "int       : impossible" << std::endl;
+    }            
+}
+
+void handel_float(double value) {
+    if(value >= std::numeric_limits<float>::lowest() && value <= std::numeric_limits<float>::max()) {
+        float f_value = static_cast<float>(value);
+        if (value == floor(f_value) && f_value != std::numeric_limits<float>::infinity()) {
+            std::cout << "float     : " << std::fixed << std::setprecision(1) << f_value << "f" << std::endl;   
+        } else {
+            std::cout << "float     : " << f_value << "f" << std::endl;
+        }
+    } else {
+        std::cout << "float     : impossible" << std::endl;
+    }
+}
+ 
 void handle_char_literal(const std::string& arg) {
     char c;
 
@@ -84,16 +108,15 @@ void handle_char_literal(const std::string& arg) {
 
 void handle_whole_number(const std::string& arg) {
     try {
-            int value = std::stoi(arg);
-            handle_char(static_cast<int>(value));
-            std::cout << "int       : " << value << std::endl;
-            std::cout << "float     : " << std::fixed << std::setprecision(1) << static_cast<float>(value)  << "f" << std::endl;
-            std::cout << "double    : " << std::fixed << std::setprecision(1) << static_cast<double>(value) << std::endl;
+            double value = std::stod(arg);
+            handle_int(value);
+            handel_float(value);
+            std::cout << "double    : " << value << std::endl;
     } catch (const std::out_of_range& e) {
         std::cout << "char      : impossible" << std::endl;
         std::cout << "int       : impossible" << std::endl;
-        std::cout << "float     : not considering this stage" << std::endl;
-        std::cout << "double    : not considering this stage" << std::endl;
+        std::cout << "float     : impossible" << std::endl;
+        std::cout << "double    : impossible" << std::endl;
     } catch (const std::invalid_argument& e) {
         std::cout << "invalid argument : " << e.what() << std::endl;
     } catch (const std::exception& e) {
@@ -103,20 +126,15 @@ void handle_whole_number(const std::string& arg) {
 
 void handle_fractional_number(const std::string& arg) {
     try {
-            float value = std::stof(arg);
-            handle_char(static_cast<int>(value));
-
-            if(value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max())
-                std::cout << "int       : " << static_cast<int>(value) << std::endl;
-            else
-                std::cout << "int       : impossible" << std::endl;
-            std::cout << "float     : " << value << "f" << std::endl;
-            std::cout << "double    : " << static_cast<double>(value) << std::endl;
+            double value = std::stod(arg);
+            handle_int(value);
+            handel_float(value);
+            std::cout << "double    : " << value << std::endl;
     } catch (const std::out_of_range& e) {
         std::cout << "char      : impossible" << std::endl;
         std::cout << "int       : impossible" << std::endl;
         std::cout << "float     : impossible" << std::endl;
-        std::cout << "double    : not considering this stage" << std::endl;
+        std::cout << "double    : impossible" << std::endl;
     } catch (const std::invalid_argument& e) {
         std::cout << "invalid argument : " << e.what() << std::endl;
     } catch (const std::exception& e) {
@@ -127,33 +145,9 @@ void handle_fractional_number(const std::string& arg) {
 void handle_scientific_notaion(const std::string& arg) {
     try {
             double value = std::stod(arg);
-
-            //handle char conversion
-            handle_char(static_cast<int>(value));
-
-            //handle interger conversion
-            if(value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max())
-                std::cout << "int       : " << static_cast<int>(value) << std::endl;
-            else
-                std::cout << "int       : impossible" << std::endl;
-
-            //handle float conversion
-            if(value >= std::numeric_limits<float>::lowest() && value <= std::numeric_limits<float>::max()) {
-                float f_value = static_cast<float>(value);
-                if (value == floor(f_value) && f_value != std::numeric_limits<float>::infinity()) {
-                    std::cout << "float     : " << std::fixed << std::setprecision(1) << f_value << "f" << std::endl;
-                } else {
-                    std::cout << "float     : " << std::fixed << std::setprecision(6) << f_value << "f" << std::endl;
-                }
-            }
-            else
-                std::cout << "float     : impossible" << std::endl;
-
-            //handle double conversion
-            if(value == floor(value) && value != std::numeric_limits<double>::infinity())
-                std::cout << "double    : " << std::fixed << std::setprecision(1) << value << std::endl;
-            else
-                std::cout << "double    : " << std::fixed << std::setprecision(6) << value << std::endl;
+            handle_int(value);
+            handel_float(value);
+            std::cout << "double    : " << value << std::endl;
     } catch (const std::out_of_range& e) {
         std::cout << "char      : impossible" << std::endl;
         std::cout << "int       : impossible" << std::endl;
