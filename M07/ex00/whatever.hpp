@@ -1,6 +1,9 @@
 #pragma once
 
+#include <concepts>
+
 template<typename T>
+requires std::copyable<T>
 void swap(T& a, T& b) {
     T temp = a;
     a = b;
@@ -8,11 +11,13 @@ void swap(T& a, T& b) {
 }
 
 template<typename T>
+requires std::totally_ordered<T>
 T min (const T& a, const T& b) {
     return ( a < b ? a : b);
 }
 
 template<typename T>
+requires std::totally_ordered<T>
 T max (const T& a, const T& b) {
      return ( a > b ? a : b);
 }
