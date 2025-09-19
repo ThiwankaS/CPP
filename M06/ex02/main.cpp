@@ -19,12 +19,14 @@ Base* generate(void) {
 }
 
 void identify(Base* p) {
-	if (dynamic_cast<A*>(p))
-		std::cout << "actual type of object (using pointer) : A " << std::endl;
-	if (dynamic_cast<B*>(p))
-		std::cout << "actual type of object (using pointer) : B " << std::endl;
-	if (dynamic_cast<C*>(p))
-		std::cout << "actual type of object (using pointer) : C " << std::endl;
+	if(p != nullptr) {
+		if (dynamic_cast<A*>(p))
+			std::cout << "actual type of object (using pointer) : A " << std::endl;
+		if (dynamic_cast<B*>(p))
+			std::cout << "actual type of object (using pointer) : B " << std::endl;
+		if (dynamic_cast<C*>(p))
+			std::cout << "actual type of object (using pointer) : C " << std::endl;
+	}
 }
 
 void identify(Base& p) {
@@ -33,21 +35,21 @@ void identify(Base& p) {
 		std::cout << "actual type of object (using refernce) : A " << std::endl;
 		(void)a;
 	} catch (const std::exception& e) {
-		std::cerr << "Error @ A : " << e.what() << std::endl;
+		//std::cerr << "Error @ A : " << e.what() << std::endl;
 	}
 	try {
 		B& b = dynamic_cast<B&>(p);
 		std::cout << "actual type of object (using refernce) : B " << std::endl;
 		(void)b;
 	} catch (const std::exception& e) {
-		std::cerr << "Error @ B : " << e.what() << std::endl;
+		//std::cerr << "Error @ B : " << e.what() << std::endl;
 	}
 	try {
 		C& c = dynamic_cast<C&>(p);
 		std::cout << "actual type of object (using refernce) : C " << std::endl;
 		(void)c;
 	} catch (const std::exception& e) {
-		std::cerr << "Error @ C : " << e.what() << std::endl;
+		//std::cerr << "Error @ C : " << e.what() << std::endl;
 	}
 }
 
