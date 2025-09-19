@@ -17,3 +17,5 @@ class Array {
         Array& operator=(const Array& other);
         ~Array();
 };
+
+#include "Array.tpp"
