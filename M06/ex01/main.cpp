@@ -23,9 +23,9 @@ int main (void) {
 
 	test("Print pointer/varibale values : ");
 	LINE_DATA;
-	std::cout << "ptr			:" << ptr << std::endl;
-	std::cout << "raw			:" << raw << std::endl;
-	std::cout << "serialized		:" << serialized << std::endl;
+	std::cout << "ptr		:" << ptr << std::endl;
+	std::cout << "raw		:" << raw << std::endl;
+	std::cout << "serialized	:" << serialized << std::endl;
 
 	test("Print data using a raw pointer (after serialize) : ");
 	LINE_DATA;
