@@ -45,7 +45,7 @@ int main (void) {
 
 	int number = 5;
 	std::string* names = new std::string[number]{
-		"saman", "nilanka", "buddhi", "pubudu", "tharindu"
+		"linus torvalds", "brajane stroustrup", "danish ritche", "ada lovelace", "donald knuth"
 	};
 
 	try {
