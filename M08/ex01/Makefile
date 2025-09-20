@@ -1,9 +1,9 @@
 #
-# Makefile for dynamic.
+# Makefile for span.
 #
 
 # Name of the program
-NAME    = dynamic
+NAME    = span
 
 # Compiler name
 CMD     = c++
@@ -22,6 +22,9 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
+	helper.cpp\
+	test.cpp\
+	Span.cpp\
 	main.cpp
 
 # Object files for release build.
