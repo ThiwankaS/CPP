@@ -7,10 +7,9 @@
 #include <exception>
 
 class Span {
-    
+
     private:
         size_t N;
-        size_t element_count;
         std::vector<int>elements;
 
     public:
@@ -31,7 +30,7 @@ class Span {
                 return "Span can not be calculated!";
             }
         };
-        
+
         void addNumber(int input);
         int shortestSpan(void);
         int longestSpan(void);
