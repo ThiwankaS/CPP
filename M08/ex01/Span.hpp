@@ -34,5 +34,5 @@ class Span {
         void addNumber(int input);
         int shortestSpan(void);
         int longestSpan(void);
-        void print(void) const;
+        void print(void);
 };

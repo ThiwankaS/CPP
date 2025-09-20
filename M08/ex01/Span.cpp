@@ -42,7 +42,8 @@ int Span::longestSpan(void) {
     return (elements[N-1] - elements[0]);
 }
 
-void Span::print(void) const {
+void Span::print(void) {
+    std::sort(elements.begin(), elements.end());
     for(auto key : elements){
         std::cout << "elements :[" << key << "]\n";
     }
