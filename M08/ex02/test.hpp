@@ -15,6 +15,9 @@
 #define LINE_DATA\
     do {std::cout << "---at--- : file [" << __FILE__ << "] line no : [" << __LINE__ << "]\n";} while (0)
 
+#define NEW_LINE\
+    do {std::cout << "\n";} while (0)
+
 void test(const std::string& test_case);
 
 #endif
