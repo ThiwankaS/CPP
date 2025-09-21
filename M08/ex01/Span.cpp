@@ -1,7 +1,7 @@
 #include "Span.hpp"
 
 Span::Span()
-:N(1){}
+:N(0){}
 
 Span::Span(const size_t size)
 :N(size){}
