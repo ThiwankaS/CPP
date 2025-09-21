@@ -32,14 +32,23 @@ int Span::shortestSpan(void) {
     if(elements.size() <= 1)
         throw InvalidSpan();
     std::sort(elements.begin(), elements.end());
-    return (elements[1] - elements[0]);
+    int best = std::numeric_limits<int>::max(), diff = std::numeric_limits<int>::max();
+    for(size_t i = 1; i < elements.size();i++) {
+        diff = elements[i] - elements[i - 1];
+        if (diff == 0)
+            return (0);
+        if(diff < best)
+            best = diff;
+    }
+    return (best);
 }
 
 int Span::longestSpan(void) {
     if(elements.size() <= 1)
         throw InvalidSpan();
     std::sort(elements.begin(), elements.end());
-    return (elements[N-1] - elements[0]);
+    auto result = std::minmax_element(elements.begin(), elements.end());
+    return (*result.second - *result.first);
 }
 
 void Span::print(void) {

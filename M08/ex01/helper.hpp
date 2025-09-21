@@ -1,11 +1,15 @@
 #pragma once
 
-#include <random>
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <vector>
+#include <exception>
 
-template <typename T>
-void print(T& collection) {
-    for(auto it = collection.begin();it != collection.end(); it++) {
-        std::cout << "element : " << *it << std::endl;
+struct InvalidRnageRequest : public std::exception {
+    virtual const char* what() const noexcept {
+        return "Max should be greater than Min!";
     }
-}
+};
+
+std::vector<int> generateRandoms(size_t count, int min, int max);

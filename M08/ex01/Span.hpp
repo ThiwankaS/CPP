@@ -5,6 +5,8 @@
 #include <vector>
 #include <algorithm>
 #include <exception>
+#include <iterator>
+#include <limits>
 
 class Span {
 
@@ -35,4 +37,11 @@ class Span {
         int shortestSpan(void);
         int longestSpan(void);
         void print(void);
+
+        template<typename Iter>
+        void addRange(Iter begin, Iter end) {
+            if((elements.size() + std::distance(begin, end)) > N)
+                throw MaxSizeExceeded();
+            elements.insert(elements.end(), begin, end);
+        }
 };

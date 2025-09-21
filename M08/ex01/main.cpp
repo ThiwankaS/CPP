@@ -1,12 +1,13 @@
 #include <iostream>
 #include <exception>
 #include <ctime>
+#include <cstdlib>
 
 #include "Span.hpp"
 #include "helper.hpp"
 #include "test.hpp"
 
-constexpr size_t MAX_VALUES = 10;
+constexpr size_t MAX_VALUES = 5;
 
 int main(void) {
 
@@ -117,6 +118,27 @@ int main(void) {
         std::cerr << e.what() << std::endl;
     }
     NEW_LINE;
-    
+
+    test("creating a span usning a range");
+    LINE_DATA;
+    try {
+
+        Span new_span(10);
+        std::vector<int> randome_numbers = generateRandoms(10, 100, 200);
+        new_span.addRange(randome_numbers.begin(), randome_numbers.end());
+        LINE_DATA;
+        new_span.print();
+        NEW_LINE;
+
+        LINE_DATA;
+        int shortSpan = new_span.shortestSpan();
+        std::cout << "shortest span : " << shortSpan << std::endl;
+
+        int longSpan = new_span.longestSpan();
+        std::cout << "longest span  : " << longSpan << std::endl;
+        NEW_LINE;
+    } catch(const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
     return (EXIT_SUCCESS);
 }
