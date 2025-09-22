@@ -1,9 +1,9 @@
 #
-# Makefile for temp.
+# Makefile for magic.
 #
 
 # Name of the program
-NAME    = temp
+NAME    = magic
 
 # Compiler name
 CMD     = c++

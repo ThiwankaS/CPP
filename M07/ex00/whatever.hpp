@@ -3,7 +3,7 @@
 #include <concepts>
 
 template<typename T>
-requires std::copyable<T>
+requires std::totally_ordered<T>
 void swap(T& a, T& b) {
     T temp = a;
     a = b;
