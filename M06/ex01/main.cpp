@@ -32,5 +32,8 @@ int main (void) {
 	std::cout << "serialized -> id :" << serialized->id << std::endl;
 	std::cout << "serialized -> name :" << serialized->name << std::endl;
 	std::cout << "serialized -> age :" << serialized->age << std::endl;
+
+	delete ptr;
+	
     return (EXIT_SUCCESS);
 }
