@@ -102,8 +102,8 @@ void handle_char_literal(const std::string& arg) {
     int value = static_cast<int>(c);
     handle_char(value);
     std::cout << "int       : " << value << std::endl;
-    std::cout << "float     : " << static_cast<float>(c) << std::endl;
-    std::cout << "double    : "  << static_cast<double>(c) << std::endl;
+    std::cout << "float     : " << static_cast<float>(c) << ".0f" << std::endl;
+    std::cout << "double    : "  << static_cast<double>(c) << ".0" << std::endl;
 }
 
 void handle_whole_number(const std::string& arg) {
