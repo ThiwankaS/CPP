@@ -69,5 +69,47 @@ int main(void) {
         ++it_ls;
     }
 
+    test("creating string stack with MutantStack class");
+    LINE_DATA;
+    MutantStack<std::string>idioms;
+    idioms.push("once in blue moon");
+    idioms.push("by hook or crook");
+    idioms.push("blow one's own trumpet");
+
+    LINE_DATA;
+    std::cout << "size(idioms) : " << idioms.size() << std::endl;
+    NEW_LINE;
+
+    test("displaying data");
+    LINE_DATA;
+    for(MutantStack<std::string>::iterator str = idioms.begin(); str != idioms.end(); str++){
+        std::cout << "idioms [" << *str << "]\n";
+    }
+    NEW_LINE;
+
+    test("removing one item");
+    LINE_DATA;
+    idioms.pop();
+    NEW_LINE;
+    for(MutantStack<std::string>::iterator str = idioms.begin(); str != idioms.end(); str++){
+        std::cout << "idioms [" << *str << "]\n";
+    }
+    NEW_LINE;
+
+    test("adding more items");
+    LINE_DATA;
+    idioms.push("end in smoke");
+    idioms.push("cats and dogs");
+    idioms.push("spill the beans");
+
+    test("displaying new stack");
+    LINE_DATA;
+    std::cout << "size(idioms) : " << idioms.size() << std::endl;
+    NEW_LINE;
+    for(MutantStack<std::string>::iterator str = idioms.begin(); str != idioms.end(); str++){
+        std::cout << "idioms [" << *str << "]\n";
+    }
+    NEW_LINE;
+
     return (EXIT_SUCCESS);
 }

@@ -7,7 +7,7 @@
 #include "helper.hpp"
 #include "test.hpp"
 
-constexpr size_t MAX_VALUES = 5;
+constexpr size_t MAX_VALUES = 10001;
 
 int main(void) {
 
