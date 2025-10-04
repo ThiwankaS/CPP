@@ -3,7 +3,7 @@
 #
 
 # Name of the program
-NAME    = modifed_stack
+NAME    = insertion_sort
 
 # Compiler name
 CMD     = c++
@@ -22,6 +22,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
+	sorting.cpp\
 	test.cpp\
 	main.cpp
 
