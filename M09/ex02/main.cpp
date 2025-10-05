@@ -12,32 +12,14 @@ void print(vector<int>& nums){
 }
 
 int main(void) {
-    
-    // vector<int> nums = {6, 9, 2, 7, 1, 4, 3, 10, 8, 5};
 
-    // print(nums);
-    // binary_insertion_sort(nums);    
-    // cout << "\n after :\n";
-    // print(nums);
-    
-
-    vector source{ 7, 1, 5 };
-    vector target{ 1, 2, 3, 4, 5, 6, 8};
-
-    cout << "source : \n";
-    print(source);
-    cout << "\n target : \n";
-    print(target);
-
-    for (auto elem : source)
-    {
-        auto it = std::lower_bound(begin(target), end(target), elem);
-        cout << "it : " << *it << "\n";
-        target.insert(it, elem);
-    }
-
-    cout << "\n target : \n";
-    print(target);
-
+    vector<int> nums = {6, 9, 2, 7, 1, 4, 3, 10, 8, 5};
+    int lenght = nums.size() - 1;
+    cout << "before : \n";
+    print(nums);
+    merge_sort(nums, lenght);
+    cout << "\n after : \n";
+    print(nums);
     return (EXIT_SUCCESS);
 }
+
