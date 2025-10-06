@@ -22,6 +22,9 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
+	FileHandler.cpp\
+	CustomeException.cpp\
+	BitcoinExchange.cpp\
 	test.cpp\
 	main.cpp
 
