@@ -17,38 +17,39 @@
 const std::regex data_format(DATA_RECORD_FORMAT);
 
 class FileHandler {
-    private:
-        std::string header_format;
+    protected:
         std::ifstream file_name;
-        std::map<std::chrono::sys_days, double> data;
+        std::string header_format;
+        std::map<std::chrono::year_month_day, double> data;
 
     public:
         FileHandler();
         FileHandler(const std::string& f_name);
         FileHandler& operator=(const FileHandler& other) = delete;
         FileHandler(const FileHandler& other) = delete;
-        ~FileHandler();
+        virtual ~FileHandler();
 
         struct FileOpeningException : public CustomeException {
-            FileOpeningException(const std::string& message)
-                : CustomeException(message){}
+            FileOpeningException(const std::string& str)
+                : CustomeException(str){}
         };
 
         struct EmptyFileExecption : public CustomeException {
-            EmptyFileExecption(const std::string& message)
-                : CustomeException(message){}
+            EmptyFileExecption(const std::string& str)
+                : CustomeException(str){}
         };
 
         struct InvalidHeaderException : public CustomeException {
-            InvalidHeaderException(const std::string& message)
-                : CustomeException(message){}
+            InvalidHeaderException(const std::string& str)
+                : CustomeException(str){}
         };
 
         struct InvalidDataException : public CustomeException {
-            InvalidDataException(const std::string& message)
-                : CustomeException(message){}
+            InvalidDataException(const std::string& str)
+                : CustomeException(str){}
         };
 
         void readData(const std::string& f_name);
-        std::map<std::chrono::sys_days, double>& getData(void);
+        std::map<std::chrono::year_month_day, double>& getData(void);
+        std::chrono::year_month_day toDate(const std::string& date);
 };

@@ -16,39 +16,47 @@ FileHandler::~FileHandler(){
     }
 }
 
-std::map<std::chrono::sys_days, double>& FileHandler::getData(void) {
+std::map<std::chrono::year_month_day, double>& FileHandler::getData(void) {
     return (this->data);
 }
 
 void FileHandler::readData(const std::string& f_name) {
     std::string header, reading_head, date;
-    bool valid_header = false;
-    double price;
+    long double price;
 
     std::getline(file_name, header);
-    if(!header.empty() || header != header_format)
-        throw InvalidHeaderException("Invalid header in the file : " + f_name + "!.");
-    if(!header.empty() && header == header_format)
-        valid_header = true;
+    if(header != header_format)
+        throw InvalidHeaderException("Invalid header in the file : " + f_name);
     while(std::getline(file_name, reading_head)) {
-
-        if(header.empty() && reading_head.empty())
-            throw EmptyFileExecption("File is empty : " + f_name + "!.");
-
-        if(!header.empty() && reading_head.empty())
-            throw InvalidDataException("Invalid data in the file : " + f_name + "!.");
-
         if(!std::regex_match(reading_head, data_format))
-            throw InvalidDataException("Invalid data in the file : " + f_name + "!.");
+            throw InvalidHeaderException("Invalid data in the file : " + f_name);
 
         std::istringstream obj(reading_head);
-        char delimeter;
-
-        if(obj >> date >> delimeter >> price && delimeter == ',') {
-            
-        } else {
-            throw InvalidDataException("Invalid data in the file : " + f_name + "!.");
+        if (!(std::getline(obj, date, ',') && obj >> price) ) {
+            throw InvalidHeaderException("Invalid data in the file : " + f_name);
         }
+        std::chrono::year_month_day ymd = toDate(date);
+        if(price < 0 || price >= std::numeric_limits<double>::max()) {
+            throw InvalidHeaderException("Invalid price data in the file : " + f_name);
+        }
+        auto [it, inserted] = data.emplace(ymd, price);
+        if(!inserted)
+            throw InvalidHeaderException("Duplicate data in the file : " + f_name);
         reading_head.clear();
     }
+}
+
+std::chrono::year_month_day FileHandler::toDate(const std::string& date) {
+    std::stringstream obj(date);
+    int y, m, d;
+    char dash;
+
+    obj >> y >> dash >> m >> dash >> d;
+    std::chrono::year_month_day ymd {
+        std::chrono::year{y}/std::chrono::month{static_cast<unsigned int>(m)}/std::chrono::day{static_cast<unsigned int>(d)}
+    };
+    if(!ymd.ok()) {
+        throw InvalidDataException("Invalid date data in the file !.");
+    }
+    return {ymd};
 }
