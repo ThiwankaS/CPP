@@ -8,9 +8,10 @@ int main(int argc, char *argv[]) {
         BitcoinExchange btc;
         std::string date = argv[1];
         try {
-                double price = btc.getPrice(date);
-                std::cout << std::fixed << std::setprecision(2);
-                std::cout << "price : " << price << "\n";
+                //double price = btc.getPrice(date);
+                //std::cout << std::fixed << std::setprecision(2);
+                //std::cout << "price : " << price << "\n";
+                std::cout << "hellooooo\n";
         } catch (const std::exception& e) {
             std::cout << "Bad input => " << date << "\n";
         }

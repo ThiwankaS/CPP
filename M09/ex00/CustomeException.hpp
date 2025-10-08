@@ -13,7 +13,7 @@ class CustomeException : public std::exception {
         CustomeException(const std::string& msg) noexcept;
         CustomeException(const CustomeException& other) noexcept;
         CustomeException& operator=(const CustomeException& other) noexcept;
-        ~CustomeException();
+        ~CustomeException() noexcept;
 
         const char *what() const noexcept;
 };

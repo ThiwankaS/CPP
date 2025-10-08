@@ -9,13 +9,19 @@
 #include <map>
 
 #include "CustomeException.hpp"
+#include "Validate.hpp"
+
+#define FILE_NAME       "data.csv"
+#define HEADER_FROMAT   "date,exchange_rate"
 
 typedef std::chrono::year_month_day Date;
 
+template <typename key, typename value>
 class FileHandler {
     protected:
-        std::ifstream file_name;
-        std::map<Date, double> data;
+        std::string     file_name;
+        std::string     header_format;
+        std::ifstream   file_stream;
 
     public:
         FileHandler();
@@ -44,7 +50,8 @@ class FileHandler {
                 : CustomeException(str){}
         };
 
-        void readData(const std::string& f_name);
-        std::map<std::chrono::year_month_day, double>& getData(void);
-        std::chrono::year_month_day toDate(const std::string& date);
+        void setHeaderFormat(const std::string& header);
+        std::map<key,value>& readData(std::map<key,value>& data);
+        std::map<key,value>& readData(std::map<key,value>& data, Validate& validator);
+        Date toDate(const std::string& date);
 };

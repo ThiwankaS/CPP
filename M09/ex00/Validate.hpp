@@ -35,6 +35,6 @@ class Validate {
         bool isValidDate(Date date);
         bool isValidRecord(const std::string& record);
         bool isValidAmount(double value);
-        bool isValidHeader(const std::string& header);
+        bool isValidHeader(const std::string& header);  
 };
 
