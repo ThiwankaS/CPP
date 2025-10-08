@@ -21,3 +21,7 @@ bool Validate::isValidRecord(const std::string& record) {
 bool Validate::isValidAmount(double value) {
     return (value <= amount_limit);
 }
+
+bool Validate::isValidHeader(const std::string& header) {
+    return (header == header_format);
+}
