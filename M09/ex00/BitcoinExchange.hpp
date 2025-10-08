@@ -12,7 +12,7 @@
 
 class BitcoinExchange : public FileHandler, public Validate {
     private:
-        std::chrono::year_month_day released_date;
+        
 
     public:
         BitcoinExchange();
