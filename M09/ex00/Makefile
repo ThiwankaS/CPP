@@ -1,9 +1,9 @@
 #
-# Makefile for easyFind.
+# Makefile for btc.
 #
 
 # Name of the program
-NAME    = easyFind
+NAME    = btc
 
 # Compiler name
 CMD     = c++
@@ -25,6 +25,7 @@ SRCS    = \
 	FileHandler.cpp\
 	CustomeException.cpp\
 	BitcoinExchange.cpp\
+	Validate.cpp\
 	test.cpp\
 	main.cpp
 

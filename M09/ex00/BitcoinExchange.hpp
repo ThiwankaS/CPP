@@ -8,12 +8,9 @@
 
 #include "CustomeException.hpp"
 #include "FileHandler.hpp"
+#include "Validate.hpp"
 
-constexpr std::chrono::sys_days INITIALE_DATE {
-    std::chrono::year{2009}/std::chrono::month(1)/std::chrono::day(2)
-};
-
-class BitcoinExchange : FileHandler {
+class BitcoinExchange : public FileHandler, public Validate {
     private:
         std::chrono::year_month_day released_date;
 
