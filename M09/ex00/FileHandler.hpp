@@ -5,14 +5,16 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 #include <regex>
 #include <map>
+#include <limits>
 
 #include "CustomeException.hpp"
 #include "Validate.hpp"
 
 #define FILE_NAME       "data.csv"
-#define HEADER_FROMAT   "date,exchange_rate"
+#define HEADER_FORMAT   "date | value"
 
 typedef std::chrono::year_month_day Date;
 
@@ -30,28 +32,22 @@ class FileHandler {
         FileHandler(const FileHandler& other) = delete;
         virtual ~FileHandler();
 
-        struct FileOpeningException : public CustomeException {
-            FileOpeningException(const std::string& str)
+        struct FileIO : public CustomeException {
+            FileIO(const std::string& str)
                 : CustomeException(str){}
         };
 
-        struct EmptyFileExecption : public CustomeException {
-            EmptyFileExecption(const std::string& str)
-                : CustomeException(str){}
-        };
-
-        struct InvalidHeaderException : public CustomeException {
-            InvalidHeaderException(const std::string& str)
-                : CustomeException(str){}
-        };
-
-        struct InvalidDataException : public CustomeException {
-            InvalidDataException(const std::string& str)
+        struct InvalidFormat : public CustomeException {
+            InvalidFormat(const std::string& str)
                 : CustomeException(str){}
         };
 
         void setHeaderFormat(const std::string& header);
-        std::map<key,value>& readData(std::map<key,value>& data);
-        std::map<key,value>& readData(std::map<key,value>& data, Validate& validator);
+        void setFileToRead(const std::string& f_name);
+        void readData(std::map<key,value>& data);
+        void readData(std::map<key,value>& data, Validate& validator);
+        void initializeFileStream(void);
         Date toDate(const std::string& date);
 };
+
+#include "FileHandler.tpp"

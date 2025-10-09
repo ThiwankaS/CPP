@@ -1,7 +1,7 @@
 #include "Validate.hpp"
 
 Validate::Validate()
-: data_format(DATA_RECORD_FORMAT), released_date(INITIALE_DATE), header_format(HEADER_FORMAT),
+: data_format(DATA_RECORD_FORMAT), released_date(INITIALE_DATE), header_format(DEFAULT_HEADER_FORMAT),
 amount_limit(1000.00) {};
 
 Validate::~Validate() {}

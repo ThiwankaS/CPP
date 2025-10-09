@@ -15,7 +15,7 @@ WARN	= -Wall -Wextra -Werror -Wshadow
 STD		= -std=c++20
 
 # Optimization flags for a release build.
-CFLAGS  = $(WARN) $(STD) -O2
+CFLAGS  = $(WARN) $(STD) -O0 -g
 
 # Debug flags with sanitizers for debug build for OBJS.
 DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
@@ -24,7 +24,6 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 SRCS    = \
 	BitcoinExchange.cpp\
 	CustomeException.cpp\
-	FileHandler.cpp\
 	Validate.cpp\
 	test.cpp\
 	main.cpp

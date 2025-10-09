@@ -1,6 +1,8 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(){}
+BitcoinExchange::BitcoinExchange(){
+    initilizer.readData(data, base_data);
+}
 
 BitcoinExchange::~BitcoinExchange(){}
 
