@@ -22,6 +22,10 @@ bool Validate::isValidAmount(double value) {
     return (value <= amount_limit);
 }
 
+bool Validate::isPositive(double value) {
+    return (value >= 0.0f);
+}
+
 bool Validate::isValidHeader(const std::string& header) {
     return (header == header_format);
 }

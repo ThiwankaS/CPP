@@ -48,6 +48,7 @@ class FileHandler {
         void readData(std::map<key,value>& data, Validate& validator);
         void initializeFileStream(void);
         Date toDate(const std::string& date);
+        double toPrice(const std::string& closing_price);
 };
 
 #include "FileHandler.tpp"

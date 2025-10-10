@@ -31,10 +31,21 @@ class Validate {
         Validate& operator=(const Validate& other) = delete;
         ~Validate();
 
+        struct InvalidDate : public CustomeException {
+            InvalidDate(const std::string& msg)
+                : CustomeException(msg){}
+        };
+
+        struct InvalidAmount : public CustomeException {
+            InvalidAmount(const std::string& msg)
+                : CustomeException(msg){}
+        };
+
         void setHeaderFormat(const std::string& header);
         bool isValidDate(Date date);
         bool isValidRecord(const std::string& record);
         bool isValidAmount(double value);
+        bool isPositive(double value);
         bool isValidHeader(const std::string& header);
 };
 

@@ -62,7 +62,9 @@ void FileHandler<key, value>::readData(std::map<key,value>& data) {
 }
 
 template <typename key, typename value>
-void FileHandler<key, value>::readData(std::map<key,value>& data, Validate& validator) {
+void FileHandler<key, value>::readData(
+    std::map<key,value>& data,
+    Validate& validator) {
     std::string header, reading_head, date, closing_price;
     Date ymd;
     long double price;
@@ -91,13 +93,9 @@ void FileHandler<key, value>::readData(std::map<key,value>& data, Validate& vali
                 throw InvalidFormat("Invalid date in the file : " + file_name);
             }
 
-            try {
-                price = std::stold(closing_price);
-            } catch (const std::exception& e) {
-                throw;
-            }
+            price = toPrice(closing_price);
 
-            if(price < 0 || price >= std::numeric_limits<double>::max()) {
+            if(!validator.isPositive(price) || price >= std::numeric_limits<double>::max()) {
                 throw InvalidFormat("Invalid price in the file : " + file_name);
             }
 
@@ -131,6 +129,18 @@ Date FileHandler<key, value>::toDate(const std::string& date) {
         throw InvalidFormat("Invalid date in the file : " + file_name);
     }
     return {ymd};
+}
+
+template <typename key, typename value>
+double FileHandler<key, value>::toPrice(const std::string& closing_price) {
+    long double price;
+
+    try {
+            price = std::stold(closing_price);
+            return (static_cast<double>(price));
+    } catch (const std::exception& e) {
+        throw;
+    }
 }
 
 template <typename key, typename value>
