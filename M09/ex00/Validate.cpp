@@ -10,6 +10,10 @@ void Validate::setHeaderFormat(const std::string& header) {
     this->header_format = header;
 }
 
+void Validate::setRecordFormat(const std::string& record) {
+    this->data_format = record;
+}
+
 bool Validate::isValidDate(Date date) {
     return (date.ok() && date >= released_date);
 }

@@ -21,10 +21,10 @@ constexpr std::chrono::sys_days INITIALE_DATE {
 
 class Validate {
     private:
-        const std::regex    data_format;
-        Date                released_date;
-        std::string         header_format;
-        long double         amount_limit;
+        std::regex      data_format;
+        Date            released_date;
+        std::string     header_format;
+        long double     amount_limit;
     public:
         Validate();
         Validate(const Validate& other) = delete;
@@ -42,6 +42,7 @@ class Validate {
         };
 
         void setHeaderFormat(const std::string& header);
+        void setRecordFormat(const std::string& record);
         bool isValidDate(Date date);
         bool isValidRecord(const std::string& record);
         bool isValidAmount(double value);
