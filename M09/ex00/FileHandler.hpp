@@ -1,26 +1,17 @@
 #pragma once
 
 #include <iostream>
-#include <chrono>
-#include <string>
-#include <sstream>
 #include <fstream>
+#include <string>
 #include <filesystem>
-#include <regex>
-#include <map>
-#include <limits>
 
 #include "CustomeException.hpp"
-#include "Validate.hpp"
 
-#define FILE_NAME       "data.csv"
-#define HEADER_FORMAT   "date | value"
-
-typedef std::chrono::year_month_day Date;
-
-template <typename key, typename value>
+#define FILE_NAME               "data.csv"
+#define DEFAULT_HEADER_FORMAT   "date,exchange_rate"
 class FileHandler {
-    protected:
+
+    private:
         std::string     file_name;
         std::string     header_format;
         std::ifstream   file_stream;
@@ -37,18 +28,8 @@ class FileHandler {
                 : CustomeException(str){}
         };
 
-        struct InvalidFormat : public CustomeException {
-            InvalidFormat(const std::string& str)
-                : CustomeException(str){}
-        };
-
         void setHeaderFormat(const std::string& header);
         void setFileToRead(const std::string& f_name);
-        void readData(std::map<key,value>& data);
-        void readData(std::map<key,value>& data, Validate& validator);
         void initializeFileStream(void);
-        Date toDate(const std::string& date);
-        double toPrice(const std::string& closing_price);
+        std::string getNextLine(void);
 };
-
-#include "FileHandler.tpp"
