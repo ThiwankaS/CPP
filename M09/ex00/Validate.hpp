@@ -30,22 +30,7 @@ class Validate {
         Validate();
         Validate(const Validate& other);
         Validate& operator=(const Validate& other);
-        ~Validate();
-
-        struct InvalidFormat : public CustomeException {
-            InvalidFormat(const std::string& str)
-                : CustomeException(str){}
-        };
-
-        struct InvalidDate : public CustomeException {
-            InvalidDate(const std::string& msg)
-                : CustomeException(msg){}
-        };
-
-        struct InvalidAmount : public CustomeException {
-            InvalidAmount(const std::string& msg)
-                : CustomeException(msg){}
-        };
+        virtual ~Validate();
 
         void setRecordFormat(const std::string& record);
         bool isValidDate(Date date);

@@ -24,6 +24,10 @@ void FileHandler::setHeaderFormat(const std::string& header) {
     this->header_format = header;
 }
 
+ bool FileHandler::isValidHeader(const std::string& header) {
+    return (this->header_format == header);
+ }
+
 void FileHandler::initializeFileStream(void) {
     std::error_code ec;
 
@@ -44,6 +48,7 @@ void FileHandler::initializeFileStream(void) {
 
 std::string FileHandler::getNextLine(void) {
     std::string line;
+
     while(std::getline(file_stream, line)){
         return (line);
     }

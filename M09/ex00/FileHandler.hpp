@@ -31,5 +31,6 @@ class FileHandler {
         void setHeaderFormat(const std::string& header);
         void setFileToRead(const std::string& f_name);
         void initializeFileStream(void);
+        bool isValidHeader(const std::string& header);
         std::string getNextLine(void);
 };

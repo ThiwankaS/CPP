@@ -1,42 +1,72 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(){
-    initilizer.readData(data, base_data);
+    std::string header, line;
+
+    try {
+        initilizer.initializeFileStream();
+        header = initilizer.getNextLine();
+        if(!initilizer.isValidHeader(header)) {
+            throw FileHandler::FileIO("invalid header => " + header);
+        }
+        while((line = initilizer.getNextLine()) != "EOF") {
+            auto [it, inserted] = data.insert(convertor.toRecord(line));
+            if(!inserted) {
+                throw FileHandler::FileIO("duplicate date => " + line);
+            }
+            line.clear();
+        }
+    } catch (const std::exception& e) {
+        throw;
+    }
 }
 
 BitcoinExchange::~BitcoinExchange(){}
 
 void BitcoinExchange::displayRecord(
-    const std::string& date,
-    const std::string& amount,
-    double value) {
+    Date ymd,
+    double amount,
+    double price) {
         std::ostringstream output_string;
 
         output_string
             << std::left
-            << std::setw(10)
-            << date
+            << std::setw(4)
+            << (int)ymd.year()
+            << "-"
+            << std::left
+            << std::setfill('0')
+            << std::setw(2)
+            << (unsigned) ymd.month()
+            << "-"
+            << std::left
+            << std::setfill('0')
+            << std::setw(2)
+            << (unsigned) ymd.day()
             << " => "
             << std::right
+            << std::setfill(' ')
             << std::setw(7)
+            << std::fixed
+            << std::setprecision(2)
             << amount
             << " = "
             << std::left
             << std::fixed
             << std::setprecision(2)
-            << value;
+            << price;
     std::cout << output_string.str() << std::endl;
 }
 
 void BitcoinExchange::displayError(const std::string& message) {
     std::ostringstream output_string;
 
-        output_string
-            << std::left
-            << std::setw(7)
-            << "Error : "
-            << std::left
-            << message;
+    output_string
+        << std::left
+        << std::setw(7)
+        << "Error : "
+        << std::left
+        << message;
     std::cout
         << HIGLIGHT_START
         << output_string.str()
@@ -44,20 +74,49 @@ void BitcoinExchange::displayError(const std::string& message) {
         << std::endl;
 }
 
-// template <typename key, typename value>
-// double BitcoinExchange::getPrice(std::string& date) {
-//     try {
-//         std::chrono::year_month_day ymd = toDate(date);
-//         if(ymd < released_date) {
-//             throw DataNotFound("Requested data can not find!");
-//         }
-//         auto it = data.upper_bound(ymd);
-//         if(it == data.begin()) {
-//             throw DataNotFound("Requested data can not find!");
-//         }
-//         --it;
-//         return (it->second);
-//     } catch (const CustomeException& e) {
-//         throw;
-//     }
-// }
+double BitcoinExchange::getPrice(Date& ymd) {
+    auto it = data.upper_bound(ymd);
+    --it;
+    return (it->second);
+
+}
+
+void BitcoinExchange::inquirePrices(const std::string& f_name) {
+    std::string header, line;
+    double price;
+    std::pair<Date, double> record;
+
+    try {
+            interface.setFileToRead(f_name);
+            interface.setHeaderFormat("date | value");
+            convertor.setRecordFormat("^\\d{4}-\\d{2}-\\d{2}\\s\\|\\s\\d+(\\.\\d+)?$");
+            convertor.setDelimiter('|');
+            interface.initializeFileStream();
+            header = interface.getNextLine();
+            if(!interface.isValidHeader(header)) {
+                throw FileHandler::FileIO("invalid header => " + header);
+            }
+
+            while ((line = interface.getNextLine()) != "EOF") {
+                try {
+                    record = convertor.toRecord(line);
+                    if(!convertor.isValidAmount(record.second)) {
+                        throw Convertor::InvalidAmount("too large number => " + line);
+                    }
+                    price = getPrice(record.first);
+                    displayRecord(record.first, record.second, price);
+                    line.clear();
+                } catch (const Convertor::InvalidDate& e) {
+                    displayError(e.what());
+                } catch (const Convertor::InvalidFormat& e) {
+                    displayError(e.what());
+                } catch (const Convertor::InvalidAmount& e) {
+                    displayError(e.what());
+                }
+            }
+    } catch (const FileHandler::FileIO& e) {
+        displayError(e.what());
+    } catch (const std::exception& e) {
+        displayError(e.what());
+    }
+}

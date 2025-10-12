@@ -26,7 +26,7 @@ void Validate::setRecordFormat(const std::string& record) {
 }
 
 bool Validate::isValidDate(Date date) {
-    return (date.ok() && date >= released_date);
+    return (date >= released_date);
 }
 
 bool Validate::isValidRecord(const std::string& record) {
@@ -34,7 +34,7 @@ bool Validate::isValidRecord(const std::string& record) {
 }
 
 bool Validate::isValidAmount(double value) {
-    return (value < amount_limit && value > 0.0f);
+    return (value < amount_limit);
 }
 
 bool Validate::isPositive(double value) {
