@@ -30,18 +30,18 @@ void BitcoinExchange::displayRecord(
         std::ostringstream output_string;
 
         output_string
-            << std::left
             << std::setw(4)
+            << std::left
             << (int)ymd.year()
             << "-"
-            << std::left
-            << std::setfill('0')
+            << std::right
             << std::setw(2)
+            << std::setfill('0')
             << (unsigned) ymd.month()
             << "-"
-            << std::left
-            << std::setfill('0')
+            << std::right
             << std::setw(2)
+            << std::setfill('0')
             << (unsigned) ymd.day()
             << " => "
             << std::right
@@ -50,11 +50,20 @@ void BitcoinExchange::displayRecord(
             << std::fixed
             << std::setprecision(2)
             << amount
-            << " = "
-            << std::left
+            << " x "
+            << std::right
+            << std::setw(10)
+            << std::setfill(' ')
             << std::fixed
             << std::setprecision(2)
-            << price;
+            << price
+            << " = "
+            << std::right
+            << std::setw(10)
+            << std::setfill(' ')
+            << std::fixed
+            << std::setprecision(2)
+            << (price * amount);
     std::cout << output_string.str() << std::endl;
 }
 
