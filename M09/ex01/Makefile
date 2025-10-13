@@ -1,9 +1,9 @@
 #
-# Makefile for span.
+# Makefile for RPN.
 #
 
 # Name of the program
-NAME    = span
+NAME    = RPN
 
 # Compiler name
 CMD     = c++
@@ -22,9 +22,8 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
-	helper.cpp\
-	test.cpp\
-	Span.cpp\
+	CustomeExcpetion.cpp\
+	RPN.cpp\
 	main.cpp
 
 # Object files for release build.
