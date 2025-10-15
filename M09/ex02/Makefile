@@ -1,9 +1,9 @@
 #
-# Makefile for modifed_stack.
+# Makefile for PmergeMe.
 #
 
 # Name of the program
-NAME    = insertion_sort
+NAME    = PmergeMe
 
 # Compiler name
 CMD     = c++
@@ -22,8 +22,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
-	sorting.cpp\
-	test.cpp\
+	CustomeException.cpp\
 	main.cpp
 
 # Object files for release build.

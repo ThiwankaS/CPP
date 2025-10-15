@@ -1,25 +1,25 @@
 #include <iostream>
 #include <vector>
+#include "PmergeMe.hpp"
 
-#include "sorting.hpp"
+int main (int argc, char *argv[]) {
 
-using namespace std;
+    std::vector<int> data = {1,2,3,4,5};
 
-void print(vector<int>& nums){
-    for(vector<int>::iterator it = nums.begin(); it != nums.end();it++) {
-        cout << "nums [" << distance(begin(nums), it) << "] : " << *it << "\n";
+    if (argc > 2) {
+        PmergeMe pm;
+        int i = 1;
+        while(i < argc) {
+            std::cout << "arg : " << argv[i] << "\n";
+            i++;
+        }
+        if(pm.isSortted(data)) {
+            std::cout << "data is sorted !\n";
+        } else {
+            std::cout << "data is not sorted !\n";
+        }
+    } else {
+        throw PmergeMe::InvalidInput("WTF!");
     }
-}
-
-int main(void) {
-
-    vector<int> nums = {6, 9, 2, 7, 1, 4, 3, 10, 8, 5};
-    int lenght = nums.size() - 1;
-    cout << "before : \n";
-    print(nums);
-    merge_sort(nums, lenght);
-    cout << "\n after : \n";
-    print(nums);
     return (EXIT_SUCCESS);
 }
-
