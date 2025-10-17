@@ -18,9 +18,12 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 PmergeMe::~PmergeMe() {}
 
 template <typename T>
-bool PmergeMe::isSortted(const T& data) {
-    for(auto it = data.begin() + 1; it < data.end();it++) {
-        if(*it < *(it - 1)){
+bool PmergeMe::isSorted(const T& data) {
+    if (data.size() < 2) {
+        return (true);
+    }
+    for(auto it = std::next(data.begin()); it < data.end();it++) {
+        if(*it < *(std::prev(it))){
             return (false);
         }
     }
@@ -31,22 +34,6 @@ template <typename T>
 bool PmergeMe::compare(T l_value, T r_value) {
     PmergeMe::number_of_comparissons++;
     return (*l_value < *r_value);
-}
-
-template <typename T>
-T next(T it, int steps) {
-    std::advance(it, steps);
-    return (it);
-}
-
-template <typename T>
-void PmergeMe::swap_pair(T it, int steps) {
-    T start = next(it, -steps + 1);
-    T end = next(it, steps);
-    while(start != end) {
-        std::iter_swap(start, next(start, steps));
-        start++;
-    }
 }
 
 /**
@@ -75,13 +62,14 @@ void PmergeMe::merge_insertion_sort(T& container, int level) {
     size_t span = comparable * 2 * level;
 
     // if there are odd no of pairs then is_odd will be true
-    bool is_odd = no_of_paris % 2 == 1 ? true : false;
+    bool is_odd = no_of_paris % 2 == 1;
 
     // an iterator to pointing the first element of the container
     Iterator start = container.begin();
     // an iterator to pointing the last comparable element of the container
-    Iterator end = next(start, span);
+    Iterator end = std::next(start, span);
 
+    // comparing pairs and swap if current_pair < previous_pair
     for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
         Iterator a0,b0,a1,b1, tailA, tailB;
 
@@ -95,25 +83,43 @@ void PmergeMe::merge_insertion_sort(T& container, int level) {
 
     // recursion call to self-fuction
     merge_insertion_sort(container, level * 2);
-    
+
     std::cout
+        << " size : " << container.size()
         << " level : " << level
         << " no of pairs :" << no_of_paris
+        << " comparable : " << comparable
         << " is odd : " << is_odd << "\n";
 
-    std::vector<int>Main;
-    std::vector<int>Pend;
+    // two vectors of iterators to store pointers to value
+    std::vector<Iterator> Main_ptrs;
+    std::vector<Iterator> Pend_ptrs;
 
-    Main.insert(Main.end(), start, std::next(start, (level * 2)));
-
-    for(Iterator it = (start + (level * 2)); it != end; it += (level * 2)) {
-        Pend.insert(Pend.end(), it, std::next(it, level));
-        Main.insert(Main.end(), std::next(it, level), std::next(it, (level * 2)));
+    for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
+        Main_ptrs.push_back(std::next(it, level));
+        Pend_ptrs.push_back(it);
     }
 
-    print("Container : ", container);
-    print("Main : ", Main);
-    print("Pend : ", Pend);
+    if(no_of_paris - (comparable * 2) == 1) {
+        Pend_ptrs.push_back(end);
+    }
+
+    int pend_count = Pend_ptrs.size();
+    int jacob_index = 2;
+    int previous_jacob_number = 1;
+    int current_jacob_number = jacobsthal_number(jacob_index);
+
+    while(pend_count > 0) {
+        int start_k = previous_jacob_number + 1;
+        int end_k = std::min(no_of_paris, current_jacob_number);
+        for(int k = end_k; k >= start_k;k--){
+            std::cout << "k value : " << k << "\n";
+        }
+        previous_jacob_number = current_jacob_number;
+        jacob_index++;
+        current_jacob_number = jacobsthal_number(jacob_index);
+        pend_count--;
+    }
 }
 
 void PmergeMe::sort_vec(std::vector<int>& vec) {

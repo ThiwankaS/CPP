@@ -7,6 +7,8 @@
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <algorithm>
+#include <memory>
 
 #include "CustomeException.hpp"
 
@@ -32,13 +34,10 @@ class PmergeMe {
         void sort_vec(std::vector<int>& vec);
 
         template <typename T>
-        bool isSortted(const T& data);
+        bool isSorted(const T& data);
 
         template <typename T>
         bool compare(T l_value, T r_value);
-
-        template <typename T>
-        void swap_pair(T it, int level);
 
         template <typename T>
         void merge_insertion_sort(T& container, int level);
