@@ -49,6 +49,9 @@ size_t PmergeMe::jacobsthal_number(size_t n) {
 template <typename T>
 void PmergeMe::merge_insertion_sort(T& container) {
     
+    static int swapping = 0;
+    static int inserton = 0;
+
     typedef typename T::iterator Iterator;
     
     size_t size = container.size();
@@ -71,17 +74,17 @@ void PmergeMe::merge_insertion_sort(T& container) {
             break;
         }
         Iterator second = it++;
-        std::cout << "(" << *first << "," << *second << ")\n";
         if(!this->compare(*first, *second)) {
+            swapping++;
             std::iter_swap(first, second);
         }
         pend_chain.push_back(*first);
         main_chain.push_back(*second);
     }
     
-    print("new data   : ", container);
-    print("main chain : ", main_chain);
-    print("pend chain : ", pend_chain);
+    // print("new data   : ", container);
+    // print("main chain : ", main_chain);
+    // print("pend chain : ", pend_chain);
 
     this->merge_insertion_sort(main_chain);
 
@@ -105,22 +108,29 @@ void PmergeMe::merge_insertion_sort(T& container) {
             }
             for(size_t i = current_jacob_number; i > previous_jacob_number; i--) {
                 const int& value = pend_chain[i - 1];
-                std::vector<int>::iterator insert_position = std::upper_bound(
+                print("container", container);
+                print("main chain : ", main_chain);
+                print("pend chain : ", pend_chain);
+                print("sorted before ", sorted);
+                std::vector<int>::iterator insert_position = std::lower_bound(
                     sorted.begin(),
                     sorted.end(),
                     value,
                     [&](const int& lhs, const int& rhs) {
+                        inserton++;
                         return this->compare(lhs, rhs);
                     }
                 );
                 sorted.insert(insert_position, value);
+                print("sorted after ", sorted);
             }
-            print("new sorted", sorted);
             previous_jacob_number = current_jacob_number;
             jacob_index++;
         }
     }
     container.assign(sorted.begin(), sorted.end());
+    std::cout << "swapping comparissons : " << swapping << "\n";
+    std::cout << "insertion comparissons : " << inserton << "\n";
 }
 
 void PmergeMe::sort_vec(std::vector<int>& vec) {

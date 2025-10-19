@@ -4,7 +4,7 @@
 
 int main (int argc, char *argv[]) {
 
-    std::vector<int> data = {11,2,17,0,16,8,6,15,10,3,21,1,18,9,14,19,12,5,4,20,13};
+    std::vector<int> data = {11,2,17,0,16,8,15,6,10,3,7,1,18,9,19,14,12,5,20,4,13};
 
     if (argc > 2) {
         (void) argv[1];
