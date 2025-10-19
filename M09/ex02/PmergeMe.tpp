@@ -36,10 +36,6 @@ bool PmergeMe::compare(const T& l_value,const T& r_value) {
     return (l_value < r_value);
 }
 
-/**
- * this function will return the correspoding Jacobsthal number
- * at nth index, starting from 0th index
-*/
 size_t PmergeMe::jacobsthal_number(size_t n) {
     return (round(
         (pow(2, n) - pow(-1, n)) / 3
@@ -48,14 +44,14 @@ size_t PmergeMe::jacobsthal_number(size_t n) {
 
 template <typename T>
 void PmergeMe::merge_insertion_sort(T& container) {
-    
+
     static int swapping = 0;
     static int inserton = 0;
 
     typedef typename T::iterator Iterator;
-    
+
     size_t size = container.size();
-    
+
     std::vector<int>main_chain;
     std::vector<int>pend_chain;
 
@@ -70,27 +66,33 @@ void PmergeMe::merge_insertion_sort(T& container) {
     while(it != container.end()) {
         Iterator first = it++;
         if(it == container.end()) {
-            pend_chain.push_back(*first);    
+            pend_chain.push_back(*first);
             break;
         }
         Iterator second = it++;
+        swapping++;
         if(!this->compare(*first, *second)) {
-            swapping++;
             std::iter_swap(first, second);
         }
         pend_chain.push_back(*first);
         main_chain.push_back(*second);
     }
-    
-    // print("new data   : ", container);
-    // print("main chain : ", main_chain);
-    // print("pend chain : ", pend_chain);
 
     this->merge_insertion_sort(main_chain);
 
     std::vector<int>sorted(main_chain.begin(), main_chain.end());
     if(!pend_chain.empty()) {
-        sorted.insert(sorted.begin(), pend_chain[0]);
+        int value = pend_chain[0];
+        std::vector<int>::iterator place = std::lower_bound(
+            sorted.begin(),
+            sorted.end(),
+            value,
+            [&](const int& lhs, const int& rhs){
+                inserton++;
+                return this->compare(lhs, rhs);
+            }
+        );
+        sorted.insert(place, value);
     }
 
     size_t pend_size = pend_chain.size();
@@ -107,12 +109,8 @@ void PmergeMe::merge_insertion_sort(T& container) {
                 current_jacob_number = pend_size;
             }
             for(size_t i = current_jacob_number; i > previous_jacob_number; i--) {
-                const int& value = pend_chain[i - 1];
-                print("container", container);
-                print("main chain : ", main_chain);
-                print("pend chain : ", pend_chain);
-                print("sorted before ", sorted);
-                std::vector<int>::iterator insert_position = std::lower_bound(
+                int value = pend_chain[i - 1];
+                std::vector<int>::iterator insert_position = std::upper_bound(
                     sorted.begin(),
                     sorted.end(),
                     value,
@@ -122,7 +120,6 @@ void PmergeMe::merge_insertion_sort(T& container) {
                     }
                 );
                 sorted.insert(insert_position, value);
-                print("sorted after ", sorted);
             }
             previous_jacob_number = current_jacob_number;
             jacob_index++;

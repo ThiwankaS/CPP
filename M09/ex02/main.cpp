@@ -14,7 +14,7 @@ int main (int argc, char *argv[]) {
         pm.print("sorted data : ", data);
         std::cout << "Number of comparissions : "
             << PmergeMe::number_of_comparissons
-            << std::endl; 
+            << std::endl;
     }
     return (EXIT_SUCCESS);
 }
