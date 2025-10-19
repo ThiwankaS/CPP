@@ -31,7 +31,7 @@ bool PmergeMe::isSorted(const T& data) {
 }
 
 template <typename T>
-bool PmergeMe::compare(T l_value, T r_value) {
+bool PmergeMe::compare(T l_value,T r_value) {
     PmergeMe::number_of_comparissons++;
     return (*l_value < *r_value);
 }
@@ -48,28 +48,31 @@ long int PmergeMe::jacobsthal_number(long int n) {
 
 template <typename T>
 void PmergeMe::merge_insertion_sort(T& container, int level) {
-    // declaring an iterator type of container
+
     typedef typename T::iterator Iterator;
 
-    // calculate the no of pairs can be form
-    int no_of_paris = container.size() / level;
-    // if no of pairs less than 2 there is nothing to compare
+    size_t size = container.size();
+    int no_of_paris = size / level;
     if(no_of_paris < 2) {
         return ;
     }
 
     size_t comparable = no_of_paris / 2;
     size_t span = comparable * 2 * level;
-
-    // if there are odd no of pairs then is_odd will be true
-    bool is_odd = no_of_paris % 2 == 1;
-
-    // an iterator to pointing the first element of the container
+    //bool is_odd = no_of_paris % 2 == 1;
     Iterator start = container.begin();
-    // an iterator to pointing the last comparable element of the container
     Iterator end = std::next(start, span);
 
-    // comparing pairs and swap if current_pair < previous_pair
+    std::vector<int> main_chain;
+    std::vector<int> pend_chain;
+    std::vector<int> sorted;
+    std::vector<int> stragler;
+
+    main_chain.reserve(size / 2);
+    main_chain.reserve((size + 1) / 2);
+    sorted.reserve(size);
+    stragler.reserve(size - span);
+
     for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
         Iterator a0,b0,a1,b1, tailA, tailB;
 
@@ -81,45 +84,65 @@ void PmergeMe::merge_insertion_sort(T& container, int level) {
         }
     }
 
-    // recursion call to self-fuction
-    merge_insertion_sort(container, level * 2);
-
-    std::cout
-        << " size : " << container.size()
-        << " level : " << level
-        << " no of pairs :" << no_of_paris
-        << " comparable : " << comparable
-        << " is odd : " << is_odd << "\n";
-
-    // two vectors of iterators to store pointers to value
-    std::vector<Iterator> Main_ptrs;
-    std::vector<Iterator> Pend_ptrs;
-
     for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
-        Main_ptrs.push_back(std::next(it, level));
-        Pend_ptrs.push_back(it);
+        Iterator a0,b0,a1,b1;
+        a0 = it; a1 = std::next(a0, level);
+        b0 = a1; b1 = std::next(b0, level);
+        pend_chain.insert(pend_chain.end(), a0, a1);
+        main_chain.insert(main_chain.end(), b0, b1);
     }
 
     if(no_of_paris - (comparable * 2) == 1) {
-        Pend_ptrs.push_back(end);
+        pend_chain.insert(pend_chain.end(), end, std::next(end, level));
+        stragler.insert(stragler.end(), std::next(end, level), container.end());
+    }else {
+        stragler.insert(stragler.end(), end, container.end());
+    }
+    //std::vector<int>jacob = {1,3,5,11,23,45};
+    main_chain.insert(main_chain.begin(), pend_chain.begin(), std::next(pend_chain.begin(), level));
+
+    print("container : ", container);
+    std::cout << "level : " << level << "\n";
+    print("main : ", main_chain);
+    print("pend : ", pend_chain);
+    print("straggler : ", stragler);
+
+    std::vector<Iterator>pend_ptrs;
+    std::vector<Iterator>main_ptrs;
+    for(Iterator it = std::next(pend_chain.begin(), level); it != pend_chain.end();std::advance(it, level)) {
+        Iterator b1 = std::next(it, level);
+        Iterator tailB = std::prev(b1);
+        pend_ptrs.push_back(tailB);
     }
 
-    int pend_count = Pend_ptrs.size();
-    int jacob_index = 2;
-    int previous_jacob_number = 1;
-    int current_jacob_number = jacobsthal_number(jacob_index);
-
-    while(pend_count > 0) {
-        int start_k = previous_jacob_number + 1;
-        int end_k = std::min(no_of_paris, current_jacob_number);
-        for(int k = end_k; k >= start_k;k--){
-            std::cout << "k value : " << k << "\n";
+    for(auto key = pend_ptrs.begin(); key != pend_ptrs.end();key++) {
+        main_ptrs.clear();
+        for(Iterator it = main_chain.begin(); it != main_chain.end();std::advance(it, level)) {
+            Iterator a1 = std::next(it, level);
+            Iterator tailA = std::prev(a1);
+            main_ptrs.push_back(tailA);
         }
-        previous_jacob_number = current_jacob_number;
-        jacob_index++;
-        current_jacob_number = jacobsthal_number(jacob_index);
-        pend_count--;
+        auto insert = std::upper_bound(
+            main_ptrs.begin(),
+            main_ptrs.end(),
+            *key,
+            [](Iterator a, Iterator b) {
+                return ( *a < *b);
+            }
+        );
+        main_chain.insert(std::next(insert, -level), std::next(*key, -level), *key);
     }
+    std::cout << "main ptrs : <";
+    for(auto it = main_ptrs.begin(); it != main_ptrs.end();it++){
+        std::cout << **it <<",";
+    }
+    std::cout << ">\n";
+        std::cout << "pend ptrs : <";
+    for(auto it = pend_ptrs.begin(); it != pend_ptrs.end();it++){
+        std::cout << **it <<",";
+    }
+    std::cout << ">\n";
+    merge_insertion_sort(container, level * 2);
 }
 
 void PmergeMe::sort_vec(std::vector<int>& vec) {
