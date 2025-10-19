@@ -31,122 +31,100 @@ bool PmergeMe::isSorted(const T& data) {
 }
 
 template <typename T>
-bool PmergeMe::compare(T l_value,T r_value) {
+bool PmergeMe::compare(const T& l_value,const T& r_value) {
     PmergeMe::number_of_comparissons++;
-    return (*l_value < *r_value);
+    return (l_value < r_value);
 }
 
 /**
  * this function will return the correspoding Jacobsthal number
  * at nth index, starting from 0th index
 */
-long int PmergeMe::jacobsthal_number(long int n) {
+size_t PmergeMe::jacobsthal_number(size_t n) {
     return (round(
         (pow(2, n) - pow(-1, n)) / 3
     ));
 }
 
 template <typename T>
-void PmergeMe::merge_insertion_sort(T& container, int level) {
-
+void PmergeMe::merge_insertion_sort(T& container) {
+    
     typedef typename T::iterator Iterator;
-
+    
     size_t size = container.size();
-    int no_of_paris = size / level;
-    if(no_of_paris < 2) {
-        return ;
-    }
-
-    size_t comparable = no_of_paris / 2;
-    size_t span = comparable * 2 * level;
-    //bool is_odd = no_of_paris % 2 == 1;
-    Iterator start = container.begin();
-    Iterator end = std::next(start, span);
-
-    std::vector<int> main_chain;
-    std::vector<int> pend_chain;
-    std::vector<int> sorted;
-    std::vector<int> stragler;
+    
+    std::vector<int>main_chain;
+    std::vector<int>pend_chain;
 
     main_chain.reserve(size / 2);
-    main_chain.reserve((size + 1) / 2);
-    sorted.reserve(size);
-    stragler.reserve(size - span);
+    pend_chain.reserve((size + 1) / 2);
 
-    for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
-        Iterator a0,b0,a1,b1, tailA, tailB;
+    if(size < 2) {
+        return;
+    }
 
-        a0 = it; a1 = std::next(a0, level); tailA = std::prev(a1);
-        b0 = a1; b1 = std::next(b0, level); tailB = std::prev(b1);
-
-        if(compare(tailB, tailA)) {
-            std::swap_ranges(a0, a1, b0);
+    Iterator it = container.begin();
+    while(it != container.end()) {
+        Iterator first = it++;
+        if(it == container.end()) {
+            pend_chain.push_back(*first);    
+            break;
         }
-    }
-
-    for(Iterator it = start; it != end; std::advance(it, (2 * level))) {
-        Iterator a0,b0,a1,b1;
-        a0 = it; a1 = std::next(a0, level);
-        b0 = a1; b1 = std::next(b0, level);
-        pend_chain.insert(pend_chain.end(), a0, a1);
-        main_chain.insert(main_chain.end(), b0, b1);
-    }
-
-    if(no_of_paris - (comparable * 2) == 1) {
-        pend_chain.insert(pend_chain.end(), end, std::next(end, level));
-        stragler.insert(stragler.end(), std::next(end, level), container.end());
-    }else {
-        stragler.insert(stragler.end(), end, container.end());
-    }
-    //std::vector<int>jacob = {1,3,5,11,23,45};
-    main_chain.insert(main_chain.begin(), pend_chain.begin(), std::next(pend_chain.begin(), level));
-
-    print("container : ", container);
-    std::cout << "level : " << level << "\n";
-    print("main : ", main_chain);
-    print("pend : ", pend_chain);
-    print("straggler : ", stragler);
-
-    std::vector<Iterator>pend_ptrs;
-    std::vector<Iterator>main_ptrs;
-    for(Iterator it = std::next(pend_chain.begin(), level); it != pend_chain.end();std::advance(it, level)) {
-        Iterator b1 = std::next(it, level);
-        Iterator tailB = std::prev(b1);
-        pend_ptrs.push_back(tailB);
-    }
-
-    for(auto key = pend_ptrs.begin(); key != pend_ptrs.end();key++) {
-        main_ptrs.clear();
-        for(Iterator it = main_chain.begin(); it != main_chain.end();std::advance(it, level)) {
-            Iterator a1 = std::next(it, level);
-            Iterator tailA = std::prev(a1);
-            main_ptrs.push_back(tailA);
+        Iterator second = it++;
+        std::cout << "(" << *first << "," << *second << ")\n";
+        if(!this->compare(*first, *second)) {
+            std::iter_swap(first, second);
         }
-        auto insert = std::upper_bound(
-            main_ptrs.begin(),
-            main_ptrs.end(),
-            *key,
-            [](Iterator a, Iterator b) {
-                return ( *a < *b);
+        pend_chain.push_back(*first);
+        main_chain.push_back(*second);
+    }
+    
+    print("new data   : ", container);
+    print("main chain : ", main_chain);
+    print("pend chain : ", pend_chain);
+
+    this->merge_insertion_sort(main_chain);
+
+    std::vector<int>sorted(main_chain.begin(), main_chain.end());
+    if(!pend_chain.empty()) {
+        sorted.insert(sorted.begin(), pend_chain[0]);
+    }
+
+    size_t pend_size = pend_chain.size();
+    if(pend_size > 1) {
+        size_t previous_jacob_number = 1;
+        size_t jacob_index = 2;
+        while(previous_jacob_number < pend_size) {
+            size_t current_jacob_number = jacobsthal_number(jacob_index);
+            if(current_jacob_number <= previous_jacob_number ) {
+                jacob_index++;
+                continue;
             }
-        );
-        main_chain.insert(std::next(insert, -level), std::next(*key, -level), *key);
+            if(current_jacob_number > pend_size) {
+                current_jacob_number = pend_size;
+            }
+            for(size_t i = current_jacob_number; i > previous_jacob_number; i--) {
+                const int& value = pend_chain[i - 1];
+                std::vector<int>::iterator insert_position = std::upper_bound(
+                    sorted.begin(),
+                    sorted.end(),
+                    value,
+                    [&](const int& lhs, const int& rhs) {
+                        return this->compare(lhs, rhs);
+                    }
+                );
+                sorted.insert(insert_position, value);
+            }
+            print("new sorted", sorted);
+            previous_jacob_number = current_jacob_number;
+            jacob_index++;
+        }
     }
-    std::cout << "main ptrs : <";
-    for(auto it = main_ptrs.begin(); it != main_ptrs.end();it++){
-        std::cout << **it <<",";
-    }
-    std::cout << ">\n";
-        std::cout << "pend ptrs : <";
-    for(auto it = pend_ptrs.begin(); it != pend_ptrs.end();it++){
-        std::cout << **it <<",";
-    }
-    std::cout << ">\n";
-    merge_insertion_sort(container, level * 2);
+    container.assign(sorted.begin(), sorted.end());
 }
 
 void PmergeMe::sort_vec(std::vector<int>& vec) {
-    merge_insertion_sort<std::vector<int> >(vec, 1);
+    merge_insertion_sort<std::vector<int> >(vec);
 }
 
 template <typename T>

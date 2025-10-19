@@ -29,7 +29,7 @@ class PmergeMe {
                 CustomeException(str){}
         };
 
-        long int jacobsthal_number(long int n);
+        size_t jacobsthal_number(size_t n);
 
         void sort_vec(std::vector<int>& vec);
 
@@ -37,10 +37,10 @@ class PmergeMe {
         bool isSorted(const T& data);
 
         template <typename T>
-        bool compare(T l_value,T r_value);
+        bool compare(const T& l_value,const T& r_value);
 
         template <typename T>
-        void merge_insertion_sort(T& container, int level);
+        void merge_insertion_sort(T& container);
 
         template <typename T>
         void print(std::string str, T& nums);
