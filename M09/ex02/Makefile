@@ -22,6 +22,7 @@ DFLAGS  = $(WARN) $(STD) -O0 -g3 -fsanitize=address,undefined
 
 # Source files.
 SRCS    = \
+	PmergeMe.cpp\
 	CustomeException.cpp\
 	main.cpp
 
