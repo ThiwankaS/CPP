@@ -56,39 +56,88 @@ size_t PmergeMe::jacob_number(ssize_t index) {
     return ((size_t)result);
 }
 
-void PmergeMe::sort_vector(std::vector<int>& data, size_t level) {
+void PmergeMe::sort_vector(std::vector<int>& data) {
 
     typedef std::vector<int>::iterator Iterator;
     typedef std::unordered_map<int, Iterator> Index;
     typedef std::pair<Iterator, int>Element;
+
+    std::vector<int>Jacob_index = {0, 1, 3, 5, 11, 23, 45};
 
     std::vector<Element>Pend_chain;
     Index indexes;
     std::vector<int>Main_chain;
 
     size_t size = data.size();
-    size_t pair_size = level * 2;
-    size_t no_of_pairs = size / pair_size;
-    size_t span = no_of_pairs * pair_size;
 
-    if(pair_size > size) {
+    if(size < 2) {
         return;
     }
 
     Iterator it = data.begin();
-    Iterator last = std::next(it, span);
-    //Iterator end = data.end();
-    Iterator a0,a1,tailA,b0,b1,tailB;
-
-    while (it != last) {
-        a0 = it; a1 = std::next(a0, level); tailA = std::prev(a1);
-        b0 = a1; b1 = std::next(b0, level); tailB = std::prev(b1);
-        if(compare(*tailA, *tailB)) {
-            std::rotate(b0, a0, a1);
+    while(it != data.end()){
+        Iterator nxt = std::next(it);
+        if(nxt == data.end()) {
+            Pend_chain.emplace_back(std::make_pair(it, -1));
+            break;
         }
-        it = std::next(it, 2 * level);   
+        if(compare(*it, *nxt)){
+            std::iter_swap(it, nxt);
+        }
+        Main_chain.push_back(*nxt);
+        Pend_chain.emplace_back(std::make_pair(it, *nxt));
+        it = std::next(nxt);
     }
 
-    PmergeMe::print("data   : ", data);
-    PmergeMe::sort_vector(data, (level * 2));
+    PmergeMe::sort_vector(Main_chain);
+
+    indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
+
+    if(!Pend_chain.empty()){
+        Element element = Pend_chain[0];
+        Iterator limit = indexes[element.second];
+        int value = *element.first;
+        Iterator pos = std::lower_bound(
+            Main_chain.begin(),
+            limit,
+            value,
+            [](int a, int b){
+                PmergeMe::comparissons++;
+                PmergeMe::initial++;
+                return (a < b);
+            }
+        );
+        Main_chain.insert(pos, value);
+        indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
+    }
+
+    size_t jacob_index = 2;
+    size_t previous_jacob_number = 1;
+    size_t current_jacob_number;
+    while(previous_jacob_number < Pend_chain.size()) {
+        current_jacob_number = jacob_number(jacob_index);
+        if(current_jacob_number > Pend_chain.size()) {
+            current_jacob_number = Pend_chain.size();
+        }
+        for(size_t k = current_jacob_number; k > previous_jacob_number; k--) {
+            Element element = Pend_chain[k - 1];
+            Iterator limit = indexes[element.second];
+            int value = *element.first;
+            Iterator pos = std::lower_bound(
+                Main_chain.begin(),
+                limit,
+                value,
+                [](int a, int b) {
+                    PmergeMe::comparissons++;
+                    PmergeMe::insertion++;
+                    return (a < b);
+                }
+            );
+            Main_chain.insert(pos, value);
+            indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
+        }
+        previous_jacob_number = current_jacob_number;
+        jacob_index++;
+    }
+    data.assign(Main_chain.begin(), Main_chain.end());
 }

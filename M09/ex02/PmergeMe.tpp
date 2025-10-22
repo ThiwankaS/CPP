@@ -18,5 +18,6 @@ std::unordered_map<int, Iterator> PmergeMe::updateIndexes(std::vector<int>& data
             indexes[*it] = it;
         }
     }
+    indexes[-1] = data.end();
     return (indexes);
 }

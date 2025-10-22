@@ -25,7 +25,7 @@ int main (int argc, char *argv[]) {
                 }
             }
             PmergeMe::print("Before : ", data);
-            PmergeMe::sort_vector(data, 1);
+            PmergeMe::sort_vector(data);
             PmergeMe::print("After : ", data);
             std::cout << "Comparissons : " << PmergeMe::comparissons << "\n";
             std::cout << "Comparissons (Sorting) : " << PmergeMe::sorting << "\n";
