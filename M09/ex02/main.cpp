@@ -5,6 +5,10 @@
 /*
     base example
     11 2 17 0 16 8 15 6 10 3 7 1 18 9 19 14 12 5 20 4 13
+    11 2 17 6 19 8 15 0 10 3 7 1 18 9 16 14 12 5 20 4 21 13
+    11 2 6 17 16 8 6 15 10 3 7 1 18 19 9 14 12 5 20 4 13
+    11 2 6 17 16 8 0 15 10 3 7 1 18 19 9 14 12 5 20 4 13
+    2 11 0 17 8 16 15 6 10 3 7 1 18 9 19 14 12 5 20 4 13
 */
 
 int main (int argc, char *argv[]) {
@@ -21,6 +25,9 @@ int main (int argc, char *argv[]) {
                 }
             }
             PmergeMe::print("Before : ", data);
+            PmergeMe::sort_vector(data);
+            PmergeMe::print("After : ", data);
+            std::cout << "Comparissons : " << PmergeMe::comparissons << "\n";
         } catch (const std::exception& e) {
             std::cerr << e.what() << "\n";
         }
