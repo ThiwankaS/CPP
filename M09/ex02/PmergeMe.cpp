@@ -62,8 +62,6 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
     typedef std::unordered_map<int, Iterator> Index;
     typedef std::pair<Iterator, int>Element;
 
-    std::vector<int>Jacob_index = {0, 1, 3, 5, 11, 23, 45};
-
     std::vector<Element>Pend_chain;
     Index indexes;
     std::vector<int>Main_chain;
