@@ -25,9 +25,12 @@ int main (int argc, char *argv[]) {
                 }
             }
             PmergeMe::print("Before : ", data);
-            PmergeMe::sort_vector(data);
+            PmergeMe::sort_vector(data, 1);
             PmergeMe::print("After : ", data);
             std::cout << "Comparissons : " << PmergeMe::comparissons << "\n";
+            std::cout << "Comparissons (Sorting) : " << PmergeMe::sorting << "\n";
+            std::cout << "Comparissons (Intial inserting): " << PmergeMe::initial << "\n";
+            std::cout << "Comparissons (Insertion): " << PmergeMe::insertion << "\n";
         } catch (const std::exception& e) {
             std::cerr << e.what() << "\n";
         }

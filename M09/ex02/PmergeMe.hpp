@@ -19,6 +19,9 @@ class PmergeMe {
         static const std::regex Number_FMT;
     public:
         static int comparissons;
+        static int sorting;
+        static int initial;
+        static int insertion;
         PmergeMe();
         PmergeMe(const PmergeMe& other) = delete;
         PmergeMe& operator=(const PmergeMe& other) = delete;
@@ -32,7 +35,7 @@ class PmergeMe {
         static void sort_vector(void);
         static bool isValid(std::string str);
         static int toInt(const char* arg);
-        static void sort_vector(std::vector<int>& data);
+        static void sort_vector(std::vector<int>& data, size_t level);
         static bool compare(int a, int b);
         static size_t jacob_number(ssize_t index);
 
