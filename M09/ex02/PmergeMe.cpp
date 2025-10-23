@@ -91,7 +91,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
 
     indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
 
-    if(!Pend_chain.empty()){
+    if(Pend_chain.size() >= 1){
         Element element = Pend_chain[0];
         Iterator limit = indexes[element.second];
         int value = *element.first;
@@ -109,7 +109,25 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
     }
 
-    size_t jacob_index = 2;
+    if(Pend_chain.size() >= 2){
+        Element element = Pend_chain[1];
+        Iterator limit = indexes[element.second];
+        int value = *element.first;
+        Iterator pos = std::lower_bound(
+            Main_chain.begin(),
+            limit,
+            value,
+            [](int a, int b){
+                PmergeMe::comparissons++;
+                PmergeMe::initial++;
+                return (a < b);
+            }
+        );
+        Main_chain.insert(pos, value);
+        indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
+    }
+
+    size_t jacob_index = 3;
     size_t previous_jacob_number = 1;
     size_t current_jacob_number;
     while(previous_jacob_number < Pend_chain.size()) {
@@ -117,7 +135,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         if(current_jacob_number > Pend_chain.size()) {
             current_jacob_number = Pend_chain.size();
         }
-        for(size_t k = current_jacob_number; k > previous_jacob_number; k--) {
+        for(size_t k = current_jacob_number; (k > previous_jacob_number && k > 2); k--) {
             Element element = Pend_chain[k - 1];
             Iterator limit = indexes[element.second];
             int value = *element.first;
