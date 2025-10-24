@@ -5,18 +5,17 @@
 /*
     base example
     11 2 17 0 16 8 15 6 10 3 7 1 18 9 19 14 12 5 20 4 13
-    11 2 17 6 19 8 15 0 10 3 7 1 18 9 16 14 12 5 20 4 21 13
     11 2 6 17 16 8 6 15 10 3 7 1 18 19 9 14 12 5 20 4 13
-    11 2 6 17 16 8 0 15 10 3 7 1 18 19 9 14 12 5 20 4 13
-    2 11 0 17 8 16 15 6 10 3 7 1 18 9 19 14 12 5 20 4 13
+    ./PmergeMe `shuf -i 1-100000 -n 21 | tr "\n" " "`
 */
 
 int main (int argc, char *argv[]) {
     PmergeMe pm;
     std::vector<int> data;
+    std::string status;
     int value;
 
-    if(argc > 2) {
+    if(argc > 1) {
         try {
             for(int i = 1; i < argc;i++) {
                 if(PmergeMe::isValid(argv[i])){
@@ -31,6 +30,14 @@ int main (int argc, char *argv[]) {
             std::cout << "Comparissons (Sorting) : " << PmergeMe::sorting << "\n";
             std::cout << "Comparissons (Intial inserting): " << PmergeMe::initial << "\n";
             std::cout << "Comparissons (Insertion): " << PmergeMe::insertion << "\n";
+
+            PmergeMe::is_sorted(data) ? status = " Success! " : status = " Failed! ";
+            std::cout << "Sorting process status : "
+                      << HIGLIGHT_START
+                      << status
+                      << HIGLIGHT_END
+                      << "\n";
+
         } catch (const std::exception& e) {
             std::cerr << e.what() << "\n";
         }

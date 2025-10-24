@@ -12,6 +12,9 @@
 
 #define FORMAT "^\\+?([0-9]\\d*)$"
 
+#define HIGLIGHT_START	"\x1b[1m\x1b[38;2;0;0;0m\x1b[48;2;255;255;170m"
+#define HIGLIGHT_END	"\x1b[0m"
+
 #include "CustomeException.hpp"
 
 class PmergeMe {
@@ -32,7 +35,7 @@ class PmergeMe {
                 CustomeException(str){}
         };
 
-        static void sort_vector(void);
+        static bool is_sorted(std::vector<int>& data);
         static bool isValid(std::string str);
         static int toInt(const char* arg);
         static void sort_vector(std::vector<int>& data);

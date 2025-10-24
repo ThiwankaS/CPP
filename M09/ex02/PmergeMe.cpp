@@ -11,8 +11,17 @@ PmergeMe::PmergeMe(){}
 
 PmergeMe::~PmergeMe() {}
 
-void PmergeMe::sort_vector(void) {
-    std::cout << " I am sorter \n";
+bool PmergeMe::is_sorted(std::vector<int>& data) {
+    size_t size = data.size();
+    if(size <= 1) {
+        return (true);
+    }
+    for(size_t i = 1; i < size; i++) {
+        if(data[i] < data[i - 1]) {
+            return (false);
+        }
+    }
+    return (true);
 }
 
 bool PmergeMe::isValid(std::string str){
@@ -67,6 +76,8 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
     std::vector<int>Main_chain;
 
     size_t size = data.size();
+    int odd_value = -1;
+    bool has_odd = false;
 
     if(size < 2) {
         return;
@@ -76,7 +87,8 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
     while(it != data.end()){
         Iterator nxt = std::next(it);
         if(nxt == data.end()) {
-            Pend_chain.emplace_back(std::make_pair(it, -1));
+            odd_value = *it;
+            has_odd = true;
             break;
         }
         if(compare(*it, *nxt)){
@@ -95,7 +107,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         Element element = Pend_chain[0];
         Iterator limit = indexes[element.second];
         int value = *element.first;
-        Iterator pos = std::lower_bound(
+        Iterator pos = std::upper_bound(
             Main_chain.begin(),
             limit,
             value,
@@ -113,7 +125,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         Element element = Pend_chain[1];
         Iterator limit = indexes[element.second];
         int value = *element.first;
-        Iterator pos = std::lower_bound(
+        Iterator pos = std::upper_bound(
             Main_chain.begin(),
             limit,
             value,
@@ -139,7 +151,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
             Element element = Pend_chain[k - 1];
             Iterator limit = indexes[element.second];
             int value = *element.first;
-            Iterator pos = std::lower_bound(
+            Iterator pos = std::upper_bound(
                 Main_chain.begin(),
                 limit,
                 value,
@@ -155,5 +167,20 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         previous_jacob_number = current_jacob_number;
         jacob_index++;
     }
+
+    if(has_odd) {
+        Iterator pos = std::upper_bound(
+            Main_chain.begin(),
+            Main_chain.end(),
+            odd_value,
+            [](int a, int b){
+                PmergeMe::comparissons++;
+                PmergeMe::insertion++;
+                return (a < b);
+            }
+        );
+        Main_chain.insert(pos, odd_value);
+    }
+
     data.assign(Main_chain.begin(), Main_chain.end());
 }
