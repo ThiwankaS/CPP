@@ -65,7 +65,7 @@ size_t PmergeMe::jacob_number(ssize_t index) {
     return ((size_t)result);
 }
 
-void PmergeMe::sort_vector(std::vector<int>& data) {
+void PmergeMe::ford_jhonson_sort_vec(std::vector<int>& data) {
 
     typedef std::vector<int>::iterator Iterator;
     typedef std::unordered_map<int, Iterator> Index;
@@ -99,7 +99,7 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
         it = std::next(nxt);
     }
 
-    PmergeMe::sort_vector(Main_chain);
+    PmergeMe::ford_jhonson_sort_vec(Main_chain);
 
     indexes = PmergeMe::updateIndexes<Iterator>(Main_chain);
 
@@ -183,4 +183,8 @@ void PmergeMe::sort_vector(std::vector<int>& data) {
     }
 
     data.assign(Main_chain.begin(), Main_chain.end());
+}
+
+void PmergeMe::ford_jhonson_sort_deq(std::vector<int>& data) {
+    (void) data;
 }

@@ -10,21 +10,30 @@
 */
 
 int main (int argc, char *argv[]) {
+
     PmergeMe pm;
     std::vector<int> data;
     std::string status;
     int value;
 
     if(argc > 1) {
+
+        if(argc > 10001) {
+            std::cerr << "Too many numbers !\n";
+            return (EXIT_FAILURE);
+        }
+
         try {
+
             for(int i = 1; i < argc;i++) {
                 if(PmergeMe::isValid(argv[i])){
                     value = PmergeMe::toInt(argv[i]);
                     data.push_back(value);
                 }
             }
+
             PmergeMe::print("Before : ", data);
-            PmergeMe::sort_vector(data);
+            PmergeMe::ford_jhonson_sort_vec(data);
             PmergeMe::print("After : ", data);
             std::cout << "Comparissons : " << PmergeMe::comparissons << "\n";
             std::cout << "Comparissons (Sorting) : " << PmergeMe::sorting << "\n";

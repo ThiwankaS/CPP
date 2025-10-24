@@ -38,7 +38,8 @@ class PmergeMe {
         static bool is_sorted(std::vector<int>& data);
         static bool isValid(std::string str);
         static int toInt(const char* arg);
-        static void sort_vector(std::vector<int>& data);
+        static void ford_jhonson_sort_vec(std::vector<int>& data);
+        static void ford_jhonson_sort_deq(std::vector<int>& data);
         static bool compare(int a, int b);
         static size_t jacob_number(ssize_t index);
 
