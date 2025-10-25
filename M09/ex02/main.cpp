@@ -12,8 +12,7 @@
 int main (int argc, char *argv[]) {
 
     PmergeMe pm;
-    std::vector<int> data;
-    std::string status;
+    std::vector<int> input;
     int value;
 
     if(argc > 1) {
@@ -28,24 +27,11 @@ int main (int argc, char *argv[]) {
             for(int i = 1; i < argc;i++) {
                 if(PmergeMe::isValid(argv[i])){
                     value = PmergeMe::toInt(argv[i]);
-                    data.push_back(value);
+                    input.push_back(value);
                 }
             }
 
-            PmergeMe::print("Before : ", data);
-            PmergeMe::ford_jhonson_sort_vec(data);
-            PmergeMe::print("After : ", data);
-            std::cout << "Comparissons : " << PmergeMe::comparissons << "\n";
-            std::cout << "Comparissons (Sorting) : " << PmergeMe::sorting << "\n";
-            std::cout << "Comparissons (Intial inserting): " << PmergeMe::initial << "\n";
-            std::cout << "Comparissons (Insertion): " << PmergeMe::insertion << "\n";
-
-            PmergeMe::is_sorted(data) ? status = " Success! " : status = " Failed! ";
-            std::cout << "Sorting process status : "
-                      << HIGLIGHT_START
-                      << status
-                      << HIGLIGHT_END
-                      << "\n";
+            PmergeMe::performance_benchmark(input);
 
         } catch (const std::exception& e) {
             std::cerr << e.what() << "\n";
