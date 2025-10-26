@@ -1,16 +1,17 @@
 #pragma once
 
-#include <iostream>
-#include <regex>
-#include <string>
 #include <algorithm>
-#include <limits>
-#include <iterator>
 #include <cmath>
-#include <vector>
-#include <unordered_map>
+#include <chrono>
 #include <deque>
 #include <iomanip>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <regex>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #define FORMAT "^\\+?([0-9]\\d*)$"
 
@@ -52,6 +53,9 @@ class PmergeMe {
 
         template <typename Container, typename Iterator>
         static std::unordered_map<int, Iterator> updateIndexes(Container& data);
+
+        template <typename Time>
+        static void performance_report(const std::string& type, Time& duration, bool status, size_t size, int comparissons);
 };
 
 #include "PmergeMe.tpp"

@@ -49,65 +49,71 @@ size_t PmergeMe::jacob_number(ssize_t index) {
 }
 
 void PmergeMe::performance_benchmark(std::vector<int>& input) {
+    typedef std::chrono::high_resolution_clock Clock;
+    typedef std::chrono::time_point<Clock> Time_point;
+    typedef std::chrono::duration<double, std::micro> Microseconds;
 
     std::vector<int> vec_data;
     std::deque<int>  deq_data;
     int vec_comparissons, deq_comparissons;
+    bool vec_status, deq_status;
 
     std::string status;
 
     PmergeMe::print("Before : ", input);
 
+    Time_point vec_start = Clock::now();
+
     vec_data.insert(vec_data.end(), input.begin(), input.end());
     PmergeMe::ford_jhonson_sort(vec_data);
+
+    Time_point vec_end = Clock::now();
 
     vec_comparissons = PmergeMe::comparissons;
     PmergeMe::comparissons = 0;
 
+    Time_point deq_start = Clock::now();
+
     deq_data.insert(deq_data.end(), input.begin(), input.end());
     PmergeMe::ford_jhonson_sort(deq_data);
 
+    Time_point deq_end = Clock::now();
+
+
     deq_comparissons = PmergeMe::comparissons;
+
+    Microseconds vec_duration = (vec_end - vec_start);
+    Microseconds deq_duration = (deq_end - deq_start);
+
+    size_t vec_size = vec_data.size();
+    size_t deq_size = deq_data.size();
 
     PmergeMe::print("After  : ", vec_data);
 
-    std::cout << " Performance analysis [ using std::vectors ] : "
-            <<"\n";
-
-    std::cout << std::setw(50)
-            << " No of comparissons : "
-            << vec_comparissons
-            << "\n";
-
     PmergeMe::is_sorted<std::vector<int>&>(vec_data)
-        ? status = " Success! "
-        : status = " Failed! ";
-
-    std::cout << std::setw(50)
-            << " Sorting process status : "
-            << HIGLIGHT_START
-            << status
-            << HIGLIGHT_END
-            << "\n";
-
-    std::cout << " Performance analysis [ using std::deque ] : "
-            <<"\n";
-
-    std::cout << std::setw(50)
-            <<" No of comparissons : "
-            << deq_comparissons
-            << "\n";
+        ? vec_status = true
+        : vec_status = false;
 
     PmergeMe::is_sorted<std::deque<int>&>(deq_data)
-        ? status = " Success! "
-        : status = " Failed! ";
+        ? deq_status = true
+        : deq_status = false;
 
-    std::cout << std::setw(50)
-            << " Sorting process status : "
-            << HIGLIGHT_START
-            << status
-            << HIGLIGHT_END
-            << "\n";
+    PmergeMe::performance_report<Microseconds>(
+        "std::vector<int>",
+        vec_duration,
+        vec_status,
+        vec_size,
+        vec_comparissons
+    );
+
+    PmergeMe::performance_report<Microseconds>(
+        "std::deque<int>",
+        deq_duration,
+        deq_status,
+        deq_size,
+        deq_comparissons
+    );
+
 }
 
 void PmergeMe::ford_jhonson_sort(std::vector<int>& data) {

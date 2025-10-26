@@ -34,3 +34,42 @@ bool PmergeMe::is_sorted(Container& data) {
     }
     return (true);
 }
+
+template <typename Time>
+void PmergeMe::performance_report(const std::string& type, Time& duration, bool status, size_t size, int comparissons) {
+    std::string msg;
+
+    status ? msg = " Success! " : msg = " Failed! ";
+
+    std::cout << " Performance analysis [ "
+            << HIGLIGHT_START
+            << type
+            << HIGLIGHT_END
+            << " ] : \n";
+
+    std::cout << std::setw(50)
+            << " No of elements : "
+            << size
+            << "\n";
+
+    std::cout << std::setw(50)
+            << " Time spent : "
+            << std::setprecision(8)
+            << HIGLIGHT_START
+            << duration.count()
+            << " µs "
+            << HIGLIGHT_END
+            << "\n";
+
+    std::cout << std::setw(50)
+            << " No of comparissons : "
+            << comparissons
+            << "\n";
+
+    std::cout << std::setw(50)
+            << " Sorting process status : "
+            << HIGLIGHT_START
+            << msg
+            << HIGLIGHT_END
+            << "\n";
+}
