@@ -12,6 +12,9 @@ int main(int argc, char *argv[]) {
             std::cerr << "Error "<< std::endl;
             std::cerr << e.what() << std::endl;
         }
+    } else {
+        std::cerr << "Invalid program execution!" << "\n";
+        std::cerr << "\t use the format ./RPN \"< reverse_polish_notation_string >\" " << "\n";
     }
     return (EXIT_SUCCESS);
 }
