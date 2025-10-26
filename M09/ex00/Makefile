@@ -27,7 +27,6 @@ SRCS    = \
 	CustomeException.cpp\
 	FileHandler.cpp\
 	Validate.cpp\
-	test.cpp\
 	main.cpp
 
 # Object files for release build.
